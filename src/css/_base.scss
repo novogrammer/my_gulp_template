@@ -1,0 +1,73 @@
+@charset "utf-8";
+@import "compass";
+
+
+$TEXT_COLOR:#000;
+$LINK_COLOR:#c80000;
+
+$ALPHA:0.6;
+$ALPHA_IN_DARK:0.9;
+
+
+@mixin blockAnchor{
+  a{
+    display:block;
+    width:100%;
+    height:100%;
+  }
+}
+
+@mixin singleSpriteWithText($image){
+  display:block;
+  background: image-url($image) no-repeat;
+  width:image-width($image);
+  height:image-height($image);
+}
+
+@mixin singleSprite($image){
+  @include hide-text;
+  @include singleSpriteWithText($image);
+}
+
+@mixin alpha{
+  @include transition(all .3s ease);
+  &:hover{
+    @include opacity($ALPHA);
+    cursor:pointer;
+  }
+}
+
+@mixin alphaInDark{
+  @include transition(all .3s ease);
+  &:hover{
+    @include opacity($ALPHA_IN_DARK);
+    cursor:pointer;
+  }
+}
+
+@mixin fixUglyFontSizeOnAndroidChrome{
+  max-height: 999999px;
+}
+
+@mixin anchorLikeText($color:#000){
+  a{
+    color:$color;
+    text-decoration: none;
+    &:hover{
+      color:$color;
+      text-decoration: none;
+    }
+  }
+}
+
+
+@mixin fontSanSerif(){
+  font-family:Helvetica,'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,Osaka,sans-serif;
+}
+
+@mixin fontSerif(){
+  font-family: 'Times New Roman', '游明朝', YuMincho, 'ヒラギノ明朝 ProN W3', 'Hiragino Mincho ProN', 'メイリオ', Meiryo, serif;
+}
+
+
+
