@@ -14,6 +14,7 @@ const gulpif = require('gulp-if');
 const util = require('gulp-util');
 
 const browserify = require('browserify');
+const envify = require('envify/custom');
 const babelify = require('babelify');
 const through2 = require('through2');
 
@@ -186,6 +187,9 @@ gulp.task('babelify',function(){
       plugins: [['transform-es2015-classes', {loose: true}]],
       //sourceMaps:"file",
     })
+    .transform(envify({
+      NODE_ENV:(IS_DEBUG ? 'development' : 'production'),
+    }))
     .bundle(function(err, res) {
       if (err) { return callback(err); }
       file.contents = res;
