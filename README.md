@@ -6,11 +6,10 @@ my_gulp_template
 ご自由にどうぞ。
 
 ##前提
-* nodejs+bower
+* nodejs
 
 ##導入
     npm install
-    bower install
 
 ##実行
     gulp

@@ -21,7 +21,6 @@ const browserSync = require('browser-sync');
 const runSequence = require('run-sequence');
 const del = require('del');
 
-const bower = require('main-bower-files');
 
 
 const IS_HTTPS=false;
@@ -84,7 +83,6 @@ gulp.task('build',function(){
     [
       'copy_image',
       'copy_lib',
-      'bower',
     ],
     [
       //'scss',
@@ -107,29 +105,6 @@ gulp.task('copy_lib',function(){
   .pipe(gulp.dest(paths.dist_lib))
 })
 
-gulp.task('bower',function(){
-  let isJs=function(file){
-    return file.path.match(/\.js$/);
-  };
-  let isJsAndNotMinified=function(file){
-    return  isJs(file) && !file.path.match(/\.min\.js$/);
-  };
-  let isJsAndNotMinifiedUglify=function(file){
-    return !IS_DEBUG && isJsAndNotMinified(file);
-  };
-  
-  let isTarget=function(file){
-    return isJs(file);
-  };
-
-  return gulp.src(bower(),{base:"bower_components"})
-  .pipe(gulpif(isJsAndNotMinifiedUglify,uglify({preserveComments: 'license'})))
-  .pipe(gulpif(isJsAndNotMinified,rename({
-    extname:'.min.js',
-  })))
-  .pipe(gulp.dest(paths.dist_lib));
-  //.pipe(gulpif(isTarget,gulp.dest(paths.dist_lib)));
-})
 
 //gulp.task('scss',function(){
 //  gulp
