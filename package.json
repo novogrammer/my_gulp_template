@@ -34,5 +34,9 @@
     "run-sequence": "^1.1.5",
     "through2": "^2.0.1",
     "uglify-save-license": "^0.4.1"
+  },
+  "dependencies": {
+    "eventemitter3": "^2.0.3",
+    "jquery": "^3.2.1"
   }
 }
