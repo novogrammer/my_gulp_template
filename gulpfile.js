@@ -10,6 +10,7 @@ const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
 const uglify = require('gulp-uglify');
+const uglifySaveLicense = require('uglify-save-license');
 const gulpif = require('gulp-if');
 const util = require('gulp-util');
 
@@ -199,7 +200,7 @@ gulp.task('babelify',function(){
       console.log("Error : " + err.message);
     });
   }))
-  .pipe(gulpif(!IS_DEBUG,uglify({preserveComments: 'license'})))
+  .pipe(gulpif(!IS_DEBUG,uglify({preserveComments: uglifySaveLicense})))
   .pipe(rename({
     extname:'.js',
   }))

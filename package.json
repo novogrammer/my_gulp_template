@@ -32,6 +32,7 @@
     "gulp-util": "^3.0.7",
     "node-notifier": "^4.5.0",
     "run-sequence": "^1.1.5",
-    "through2": "^2.0.1"
+    "through2": "^2.0.1",
+    "uglify-save-license": "^0.4.1"
   }
 }
