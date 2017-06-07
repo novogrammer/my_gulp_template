@@ -1,11 +1,9 @@
 "use strict";
 const gulp = require('gulp');
-//const sass = require('gulp-sass');
 const compass = require('gulp-compass');
 //"Pug" was renamed from "Jade".
 //see https://github.com/pugjs/pug
 const pug = require('gulp-pug');
-//const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
@@ -31,8 +29,6 @@ const IS_DEBUG=false;
 const paths={
   'src':'src/',
   'dist':'dist/',
-  'stub_src':'stub_src/',
-  'stub_dist':'stub_dist/',
   'raw_contents':'raw_contents/',
   'scss':'src/css/',
   'css':'dist/css/',
@@ -87,11 +83,9 @@ gulp.task('build',function(){
       'copy_lib',
     ],
     [
-      //'scss',
       'compass',
       //pug
       'pug',
-      //'babel',
       'babelify',
     ]
   );
@@ -108,16 +102,6 @@ gulp.task('copy_lib',function(){
 })
 
 
-//gulp.task('scss',function(){
-//  gulp
-//  .src(paths.scss+'**/*.scss')
-//   .pipe(plumber({
-//     errorHandler: notify.onError("Error: <%= error.message %>")
-//   }))
-//  .pipe(sass())
-//  .pipe(gulp.dest(paths.css))
-//  .on('end',browserSync.reload);
-//});
 
 gulp.task('compass',function(){
   gulp
@@ -155,20 +139,6 @@ gulp.task('pug',function(){
   .on('end',browserSync.reload);
 });
 
-
-//gulp.task('babel',function(){
-//  gulp
-//  .src([paths.es6+'**/*.es6','!'+paths.es6+'**/_*.es6'])
-//   .pipe(plumber({
-//     errorHandler: notify.onError("Error: <%= error.message %>")
-//   }))
-//  .pipe(babel({presets: ['es2015']}))
-//  .pipe(rename({
-//    extname:'.js',
-//  }))
-//  .pipe(gulp.dest(paths.js))
-//  .on('end',browserSync.reload);
-//});
 
 gulp.task('babelify',function(){
 
