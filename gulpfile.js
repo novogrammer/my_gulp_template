@@ -68,7 +68,7 @@ gulp.task('watch',function(){
   gulp.watch([paths.scss+"**/*.scss"],['compass'])
   gulp.watch([paths.pug+"**/*.pug"],['pug'])
   //gulp.watch([paths.es6+"**/*.es6"],['babel'])
-  gulp.watch([paths.es6+"**/*.es6"],['babelify'])
+  gulp.watch([paths.es6+"**/*.es6"],['babelify-for-watch'])
 
 });
 
@@ -140,10 +140,10 @@ gulp.task('pug',function(){
 });
 
 
-gulp.task('babelify',function(){
-
+function babelifyTaskInternal(full){
+  let source = full ? [paths.es6+'**/*.es6','!'+paths.es6+'**/_*.es6'] : [paths.es6+'**/*.es6','!'+paths.es6+'**/_*.es6','!'+paths.es6+'**/bundle.es6'];
   return gulp
-  .src([paths.es6+'**/*.es6','!'+paths.es6+'**/_*.es6'])
+  .src(source)
   .pipe(plumber({
     errorHandler: notify.onError("Error: <%= error.message %>")
   }))
@@ -177,4 +177,12 @@ gulp.task('babelify',function(){
   .pipe(gulp.dest(paths.js))
   .on('end',browserSync.reload);
 
+}
+
+gulp.task('babelify',function(){
+  return babelifyTaskInternal.call(this,true);
+});
+
+gulp.task('babelify-for-watch',function(){
+  return babelifyTaskInternal.call(this,false);
 });
