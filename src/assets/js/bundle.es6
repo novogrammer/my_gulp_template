@@ -1,8 +1,11 @@
 import "./_mypolyfill.es6";
 
-import EventEmitter from "eventemitter3";
-import $ from "jquery";
-
 //expose libraries
-window.EventEmitter=EventEmitter;
-window.$=$;
+window.EventEmitter=require("eventemitter3");
+window.$=window.jQuery=require("jquery");
+require("slick-carousel");
+require("slick-carousel/slick/slick.css");
+window.bootstrap=require("bootstrap");
+require("bootstrap/dist/css/bootstrap.css");
+
+

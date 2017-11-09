@@ -16,6 +16,7 @@
     "babelify": "^7.2.0",
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
+    "browserify-css": "^0.13.1",
     "del": "^2.2.0",
     "envify": "^4.0.0",
     "gulp": "^3.9.1",
@@ -33,7 +34,9 @@
     "uglify-save-license": "^0.4.1"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "eventemitter3": "^2.0.3",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "slick-carousel": "^1.8.1"
   }
 }
