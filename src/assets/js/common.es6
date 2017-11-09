@@ -1,2 +1,2 @@
 
-console.log("common.js");
+window.isDebug=false;

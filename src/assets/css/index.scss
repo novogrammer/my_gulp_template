@@ -4,3 +4,46 @@
 body{
   background:#cfc;
 }
+
+#Main{
+  //for Overlay
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  
+}
+#Overlay{
+  #IntroMask{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:#f00;
+    color:#fff;
+    .intro{
+      position:absolute;
+      left:50%;
+      top:50%;
+      @include transform(translate(-50%,-50%));
+    }
+  }
+  #LoadingMask{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    color:#fff;
+    .loading{
+      position:absolute;
+      left:50%;
+      top:50%;
+      @include transform(translate(-50%,-50%));
+    }
+  }
+}

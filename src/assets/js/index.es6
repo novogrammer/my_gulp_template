@@ -1,5 +1,31 @@
 
+import Game from "./_Game.es6";
+//import TypeSquareAdapter from "./_TypeSquareAdapter.es6";
+
+let promiseWindowLoad=new Promise((resolve,reject)=>{
+  $(window).on("load",()=>resolve());
+});
 
 $(function(){
-  console.log("index.js");
+  let emitter=new EventEmitter();
+  emitter.on("begin intro",()=>{
+    if(window.isDebug){
+      console.log("begin intro");
+    }
+    $("#LoadingMask").fadeOut();
+  });
+  emitter.on("end intro",()=>{
+    if(window.isDebug){
+      console.log("end intro");
+    }
+    $("#IntroMask").fadeOut();
+    $("#Main").css({position:"relative",width:"auto",height:"auto",overflow:"visible"});
+  });
+  let promises=[];
+  promises.push(promiseWindowLoad);
+  //promises.push(TypeSquareAdapter.load());
+  promises.push(Game.load());
+  Promise.all(promises).then(function(){
+    let game=new Game(emitter);
+  });
 });
