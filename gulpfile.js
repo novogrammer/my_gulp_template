@@ -116,7 +116,6 @@ gulp.task('scss',function(){
     const relRoot=path.relative(path.dirname(file.path),paths.scss);
     return stream
     .pipe(sass({
-      //debug:true,
       outputStyle:"nested",
       sourceComments:false,
       includePaths:[
