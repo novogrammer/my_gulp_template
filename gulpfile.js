@@ -132,15 +132,15 @@ gulp.task('pug',function(){
   }))
   .pipe(gulpFlatmap(function(stream, file){
     return stream
-      .pipe(pug({
-        pretty:true,
-        locals:{
-          relRoot:path.join(".",path.relative(path.dirname(file.path),paths.pug),"/"),
-        },
-        basedir:paths.pug,
-        //debug:true,
-        //compileDebug:true,
-      }))
+    .pipe(pug({
+      pretty:true,
+      locals:{
+        relRoot:path.join(".",path.relative(path.dirname(file.path),paths.pug),"/"),
+      },
+      basedir:paths.pug,
+      //debug:true,
+      //compileDebug:true,
+    }))
   }))
   .pipe(gulp.dest(paths.html))
   .on('end',browserSync.reload);
