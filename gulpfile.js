@@ -1,7 +1,8 @@
 "use strict";
 const gulp = require('gulp');
 const gulpFlatmap = require('gulp-flatmap');
-const compass = require('gulp-compass');
+const sass = require('gulp-sass');
+const assetFunctions = require('node-sass-asset-functions');
 //"Pug" was renamed from "Jade".
 //see https://github.com/pugjs/pug
 const pug = require('gulp-pug');
@@ -66,8 +67,7 @@ gulp.task('watch',function(){
     },
   })
   gulp.watch([paths.src_image+"**/*"],['copy_image'])
-  //gulp.watch([paths.scss+"**/*.scss"],['scss'])
-  gulp.watch([paths.scss+"**/*.scss"],['compass'])
+  gulp.watch([paths.scss+"**/*.scss"],['scss'])
   gulp.watch([paths.pug+"**/*.pug"],['pug'])
   //gulp.watch([paths.es6+"**/*.es6"],['babel'])
   gulp.watch([paths.es6+"**/*.es6"],['babelify-for-watch'])
@@ -85,7 +85,7 @@ gulp.task('build',function(){
       'copy_lib',
     ],
     [
-      'compass',
+      'scss',
       //pug
       'pug',
       'babelify',
@@ -105,20 +105,29 @@ gulp.task('copy_lib',function(){
 
 
 
-gulp.task('compass',function(){
+gulp.task('scss',function(){
+  const pathCssToImage=path.relative(paths.css,paths.dist_image);
   gulp
   .src(paths.scss+'**/*.scss')
    .pipe(plumber({
      errorHandler: notify.onError("Error: <%= error.message %>")
    }))
-  .pipe(compass({
-    //debug:true,
-    style:"nested",
-    comments:false,
-    relative:true,
-    css:paths.css,
-    sass:paths.scss,
-    image:paths.dist_image,
+  .pipe(gulpFlatmap(function(stream, file){
+    const relRoot=path.relative(path.dirname(file.path),paths.scss);
+    return stream
+    .pipe(sass({
+      //debug:true,
+      outputStyle:"nested",
+      sourceComments:false,
+      includePaths:[
+        paths.scss,
+        "./node_modules/compass-mixins/lib",
+      ],
+      functions:assetFunctions({
+        images_path:paths.dist_image,
+        http_images_path:path.join(relRoot,pathCssToImage),
+      }),
+    }))
   }))
   .pipe(gulp.dest(paths.css))
   .on('end',browserSync.reload);
