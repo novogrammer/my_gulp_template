@@ -14,10 +14,10 @@ html(lang="ja")
     meta(name="description" content=description)
     meta(property="og:image" content=ogpImage)
     block styles
-      link(rel="stylesheet" href="/assets/css/common.css")
+      link(rel="stylesheet" href=relRoot+"assets/css/common.css")
     block scripts
-      script(src="/assets/js/bundle.js")
-      script(src="/assets/js/common.js")
+      script(src=relRoot+"assets/js/bundle.js")
+      script(src=relRoot+"assets/js/common.js")
   body
     #Main
       block main

@@ -1,5 +1,6 @@
 "use strict";
 const gulp = require('gulp');
+const gulpFlatmap = require('gulp-flatmap');
 const compass = require('gulp-compass');
 //"Pug" was renamed from "Jade".
 //see https://github.com/pugjs/pug
@@ -21,7 +22,7 @@ const browserifyCss = require('browserify-css');
 const browserSync = require('browser-sync');
 const runSequence = require('run-sequence');
 const del = require('del');
-
+const path = require('path');
 
 
 const IS_HTTPS=false;
@@ -126,15 +127,20 @@ gulp.task('compass',function(){
 gulp.task('pug',function(){
   gulp
   .src([paths.pug+'**/*.pug','!'+paths.pug+'**/_*.pug'])
-   .pipe(plumber({
+  .pipe(plumber({
      errorHandler: notify.onError("Error: <%= error.message %>")
-   }))
-  .pipe(pug({
-    pretty:true,
-    locals:{
-    },
-    //debug:true,
-    //compileDebug:true,
+  }))
+  .pipe(gulpFlatmap(function(stream, file){
+    return stream
+      .pipe(pug({
+        pretty:true,
+        locals:{
+          relRoot:path.join(".",path.relative(path.dirname(file.path),paths.pug),"/"),
+        },
+        basedir:paths.pug,
+        //debug:true,
+        //compileDebug:true,
+      }))
   }))
   .pipe(gulp.dest(paths.html))
   .on('end',browserSync.reload);
