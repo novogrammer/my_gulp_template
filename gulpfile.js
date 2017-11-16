@@ -107,6 +107,7 @@ gulp.task('copy_lib',function(){
 
 gulp.task('scss',function(){
   const pathCssToImage=path.relative(paths.css,paths.dist_image);
+  const cacheBusterString=""+Math.floor(Date.now()/1000);
   gulp
   .src(paths.scss+'**/*.scss')
    .pipe(plumber({
@@ -125,6 +126,9 @@ gulp.task('scss',function(){
       functions:assetFunctions({
         images_path:paths.dist_image,
         http_images_path:path.join(relRoot,pathCssToImage),
+        asset_cache_buster: function(http_path, real_path, done){
+          done(cacheBusterString);
+        },
       }),
     }))
   }))
