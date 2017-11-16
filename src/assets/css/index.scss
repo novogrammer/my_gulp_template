@@ -1,6 +1,11 @@
 @charset "utf-8";
 @import "_base.scss";
 
+@include keyframes(rotate){
+  to{
+    @include transform(rotate(360deg));
+  }
+}
 body{
   background:#cfc;
 }
@@ -15,6 +20,9 @@ body{
   overflow:hidden;
   .hanko{
     @include singleSprite("novo_hanko.jpg");
+    &.rotate{
+      @include animation(rotate 4s linear infinite);
+    }
   }
 }
 #Overlay{
