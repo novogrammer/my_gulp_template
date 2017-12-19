@@ -8,4 +8,6 @@ require("slick-carousel/slick/slick.css");
 window.bootstrap=require("bootstrap");
 require("bootstrap/dist/css/bootstrap.css");
 
+window.Stats=require("stats.js");
+window.animate=require("animate");
 

@@ -37,9 +37,11 @@
     "uglify-save-license": "^0.4.1"
   },
   "dependencies": {
+    "animate": "^1.0.0",
     "bootstrap": "^3.3.7",
     "eventemitter3": "^2.0.3",
     "jquery": "^3.2.1",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "stats.js": "^0.17.0"
   }
 }
