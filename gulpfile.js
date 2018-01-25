@@ -65,6 +65,11 @@ gulp.task('watch',function(){
       routes:{
       },
     },
+    ghostMode: {
+      clicks: false,
+      forms: false,
+      scroll: false,
+    },
   })
   gulp.watch([paths.src_image+"**/*"],['copy_image'])
   gulp.watch([paths.scss+"**/*.scss"],['scss'])
