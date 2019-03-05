@@ -56,7 +56,7 @@ gulp.task('default',function(){
 
 gulp.task('watch',function(){
 
-  browserSync({
+  return browserSync({
     notify:false,
     port:3000,
     https:IS_HTTPS,
@@ -113,7 +113,7 @@ gulp.task('copy_lib',function(){
 gulp.task('scss',function(){
   const pathCssToImage=path.relative(paths.css,paths.dist_image);
   const cacheBusterString=""+Math.floor(Date.now()/1000);
-  gulp
+  return gulp
   .src(paths.scss+'**/*.scss')
    .pipe(plumber({
      errorHandler: notify.onError("Error: <%= error.message %>")
@@ -142,7 +142,7 @@ gulp.task('scss',function(){
 });
 
 gulp.task('pug',function(){
-  gulp
+  return gulp
   .src([paths.pug+'**/*.pug','!'+paths.pug+'**/_*.pug'])
   .pipe(plumber({
      errorHandler: notify.onError("Error: <%= error.message %>")
