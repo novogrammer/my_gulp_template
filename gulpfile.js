@@ -21,7 +21,6 @@ const through2 = require('through2');
 const browserifyCss = require('browserify-css');
 
 const browserSync = require('browser-sync');
-const runSequence = require('run-sequence');
 const del = require('del');
 const path = require('path');
 
@@ -45,12 +44,6 @@ const paths={
   'dist_lib':'dist/assets/lib/',
 };
 
-gulp.task('default',function(){
-  return runSequence(
-    'build',
-    'watch'
-  );
-});
 
 
 
@@ -82,22 +75,7 @@ gulp.task('watch',function(){
 gulp.task('clean',function(){
   return del([paths.dist]);
 });
-gulp.task('build',function(){
-  return runSequence(
-    'clean',
-    [
-      'copy_image',
-      'copy_lib',
-    ],
-    [
-      'scss',
-      //pug
-      'pug',
-      'babelify',
-    ]
-  );
 
-});
 
 gulp.task('copy_image',function(){
   return gulp.src([paths.src_image+"**"],{base:paths.src_image})
@@ -222,3 +200,24 @@ gulp.task('babelify',function(){
 gulp.task('babelify-for-watch',function(){
   return babelifyTaskInternal.call(this,false);
 });
+
+
+gulp.task('build',gulp.series(
+  'clean',
+  gulp.parallel(
+    'copy_image',
+    'copy_lib'
+  ),
+  gulp.parallel(
+    'scss',
+    //pug
+    'pug',
+    'babelify'
+  )
+));
+
+
+gulp.task('default',gulp.series(
+  'build',
+  'watch'
+));
