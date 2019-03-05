@@ -49,6 +49,12 @@ const paths={
 
 gulp.task('watch',function(){
 
+  gulp.watch([paths.src_image+"**/*"],gulp.task('copy_image'))
+  gulp.watch([paths.scss+"**/*.scss"],gulp.task('scss'))
+  gulp.watch([paths.pug+"**/*.pug"],gulp.task('pug'))
+  //gulp.watch([paths.es6+"**/*.es6"],gulp.task('babel'))
+  gulp.watch([paths.es6+"**/*.es6"],gulp.task('babelify-for-watch'))
+
   return browserSync({
     notify:false,
     port:3000,
@@ -64,12 +70,6 @@ gulp.task('watch',function(){
       scroll: false,
     },
   })
-  gulp.watch([paths.src_image+"**/*"],['copy_image'])
-  gulp.watch([paths.scss+"**/*.scss"],['scss'])
-  gulp.watch([paths.pug+"**/*.pug"],['pug'])
-  //gulp.watch([paths.es6+"**/*.es6"],['babel'])
-  gulp.watch([paths.es6+"**/*.es6"],['babelify-for-watch'])
-
 });
 
 gulp.task('clean',function(){
