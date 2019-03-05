@@ -31,6 +31,7 @@
     "gulp-util": "^3.0.7",
     "node-notifier": "^4.5.0",
     "node-sass-asset-functions": "^0.1.0",
+    "sshpk": "^1.13.2",
     "through2": "^2.0.1",
     "uglify-save-license": "^0.4.1"
   },
