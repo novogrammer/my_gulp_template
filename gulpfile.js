@@ -165,6 +165,10 @@ gulp.task('pug',function(){
 
 
 function babelifyTaskInternal(full){
+  const presetEnvConfig = {
+    targets: [">0.25%", "not ie <= 10", "not op_mini all"],
+  };
+  
   let source = full ? [paths.es6+'**/*.es6','!'+paths.es6+'**/_*.es6'] : [paths.es6+'**/*.es6','!'+paths.es6+'**/_*.es6','!'+paths.es6+'**/bundle.es6'];
   return gulp
   .src(source)
@@ -178,8 +182,11 @@ function babelifyTaskInternal(full){
       basedir:paths.es6,
     })
     .transform(babelify,{
-      presets:["es2015"],
-      plugins: [['transform-es2015-classes', {loose: true}]],
+      presets:[
+        ['@babel/preset-env',presetEnvConfig],
+      ],
+      plugins: [
+      ],
       //sourceMaps:"file",
     })
     .transform(browserifyCss,{

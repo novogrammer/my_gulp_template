@@ -1,8 +1,5 @@
-//for IE10
-import "babel-polyfill";
-//and
-//plugins: [['transform-es2015-classes', {loose: true}]],
-//see also https://phabricator.babeljs.io/T3041
+//for IE11
+import "@babel/polyfill";
 
 
 window.console = window.console || {
