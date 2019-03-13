@@ -13,6 +13,7 @@ const uglify = require('gulp-uglify');
 const uglifySaveLicense = require('uglify-save-license');
 const gulpif = require('gulp-if');
 const util = require('gulp-util');
+const beautify = require('gulp-jsbeautifier');
 
 const browserify = require('browserify');
 const envify = require('envify/custom');
@@ -135,6 +136,10 @@ gulp.task('pug',function(){
       basedir:paths.pug,
       //debug:true,
       //compileDebug:true,
+    }))
+    .pipe(beautify({
+      //indent_inner_html:true,
+      indent_size:2,
     }))
   }))
   .pipe(gulp.dest(paths.html))
