@@ -1,3 +1,6 @@
+import {
+  IS_DEBUG,
+} from "./_constants.es6";
 
 import Game from "./_Game.es6";
 //import TypeSquareAdapter from "./_TypeSquareAdapter.es6";
@@ -9,13 +12,13 @@ let promiseWindowLoad=new Promise((resolve,reject)=>{
 $(function(){
   let emitter=new EventEmitter();
   emitter.on("begin intro",()=>{
-    if(window.isDebug){
+    if(IS_DEBUG){
       console.log("begin intro");
     }
     $("#LoadingMask").fadeOut();
   });
   emitter.on("end intro",()=>{
-    if(window.isDebug){
+    if(IS_DEBUG){
       console.log("end intro");
     }
     $("#IntroMask").fadeOut();

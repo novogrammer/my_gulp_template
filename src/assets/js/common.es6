@@ -1,2 +1,0 @@
-
-window.isDebug=false;
