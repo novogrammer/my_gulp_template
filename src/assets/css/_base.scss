@@ -17,16 +17,20 @@ $ALPHA_IN_DARK:0.9;
   }
 }
 
-@mixin singleSpriteWithText($image){
-  display:block;
-  background: image-url($image) no-repeat;
-  width:image-width($image);
-  height:image-height($image);
+@mixin imageDimension($image,$ratio:1.0){
+  width:round(image-width($image) * $ratio);
+  height:round(image-height($image) * $ratio);
 }
 
-@mixin singleSprite($image){
+@mixin singleSpriteWithText($image,$ratio:1.0,$display:block){
+  display:$display;
+  background: image-url($image) no-repeat;
+  background-size:contain;
+  @include imageDimension($image,$ratio);
+}
+@mixin singleSprite($image,$ratio:1.0,$display:block){
   @include hide-text;
-  @include singleSpriteWithText($image);
+  @include singleSpriteWithText($image,$ratio,$display);
 }
 
 @mixin alpha{
