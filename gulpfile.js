@@ -165,6 +165,7 @@ function babelifyTaskInternal(full){
       basedir:paths.es6,
     })
     .transform(babelify,{
+      global: true,
       presets:[
         ['@babel/preset-env',presetEnvConfig],
       ],
