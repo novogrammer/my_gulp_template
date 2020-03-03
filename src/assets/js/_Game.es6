@@ -7,16 +7,9 @@ import {
 export default class Game{
   constructor(emitter){
     this.emitter=emitter;
-    this.setupSlick();
     this.setupIntro();
     this.setupStats();
     this.setupEvents();
-  }
-  setupSlick(){
-    $("#Main .images").slick({
-      centerMode:true,
-      variableWidth:true,
-    });
   }
   setupIntro(){
     this.emitter.emit("begin intro");

@@ -19,7 +19,6 @@ const browserify = require('browserify');
 const envify = require('envify/custom');
 const babelify = require('babelify');
 const through2 = require('through2');
-const browserifyCss = require('browserify-css');
 
 const browserSync = require('browser-sync');
 const del = require('del');
@@ -172,11 +171,6 @@ function babelifyTaskInternal(full){
       plugins: [
       ],
       //sourceMaps:"file",
-    })
-    .transform(browserifyCss,{
-      autoInject:true,
-      minify:true,
-      global:true,
     })
     .transform(envify({
       NODE_ENV:(IS_DEBUG ? 'development' : 'production'),

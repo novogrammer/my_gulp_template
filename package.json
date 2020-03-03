@@ -15,7 +15,6 @@
     "babelify": "^10.0.0",
     "browser-sync": "^2.26.7",
     "browserify": "^13.0.0",
-    "browserify-css": "^0.15.0",
     "compass-mixins": "^0.12.10",
     "del": "^2.2.0",
     "envify": "^4.0.0",
@@ -39,10 +38,8 @@
   },
   "dependencies": {
     "animate": "^1.0.0",
-    "bootstrap": "^3.3.7",
     "eventemitter3": "^2.0.3",
     "jquery": "^3.4.1",
-    "slick-carousel": "^1.8.1",
     "stats.js": "^0.17.0"
   }
 }
