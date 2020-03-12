@@ -55,7 +55,7 @@ gulp.task('watch',function(){
   //gulp.watch([paths.es6+"**/*.es6"],gulp.task('babel'))
   gulp.watch([paths.es6+"**/*.es6"],gulp.task('babelify-for-watch'))
 
-  return browserSync({
+  browserSync({
     notify:false,
     port:3000,
     https:IS_HTTPS,
@@ -69,6 +69,7 @@ gulp.task('watch',function(){
       forms: false,
       scroll: false,
     },
+    watch: true,
   })
 });
 
@@ -115,8 +116,7 @@ gulp.task('scss',function(){
       }),
     }))
   }))
-  .pipe(gulp.dest(paths.css))
-  .on('end',browserSync.reload);
+  .pipe(gulp.dest(paths.css));
 });
 
 gulp.task('pug',function(){
@@ -141,8 +141,7 @@ gulp.task('pug',function(){
       indent_size:2,
     }))
   }))
-  .pipe(gulp.dest(paths.html))
-  .on('end',browserSync.reload);
+  .pipe(gulp.dest(paths.html));
 });
 
 
@@ -188,8 +187,7 @@ function babelifyTaskInternal(full){
   .pipe(rename({
     extname:'.js',
   }))
-  .pipe(gulp.dest(paths.js))
-  .on('end',browserSync.reload);
+  .pipe(gulp.dest(paths.js));
 
 }
 
