@@ -1,0 +1,10 @@
+{
+  "stylelint.enable": true,
+  "stylelint.autoFixOnSave": true,
+  "stylelint.useLocal": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "beautify.ignore": ["**/*"]
+}
