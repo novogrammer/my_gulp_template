@@ -12,7 +12,6 @@ const notify = require('gulp-notify');
 const uglify = require('gulp-uglify');
 const uglifySaveLicense = require('uglify-save-license');
 const gulpif = require('gulp-if');
-const util = require('gulp-util');
 const beautify = require('gulp-jsbeautifier');
 
 const browserify = require('browserify');
