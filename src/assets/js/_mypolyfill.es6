@@ -1,3 +1,2 @@
-//for IE11
-import "@babel/polyfill";
-
+// for IE11
+import '@babel/polyfill';
