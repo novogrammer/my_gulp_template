@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "eslint": "eslint src/**/*.es6",
+    "stylelint": "stylelint src/**/*.scss",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Yusuke Kawamoto <novogrammer@gmail.com>",
