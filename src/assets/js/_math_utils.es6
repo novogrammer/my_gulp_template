@@ -2,7 +2,7 @@ export function degToRad(deg) {
   return (deg / 360) * Math.PI * 2;
 }
 export function random(min = null, max = null) {
-  if (min == null && max && null) {
+  if (min == null && max == null) {
     return random(0, 1);
   }
   if (max == null) {
