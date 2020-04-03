@@ -28,5 +28,6 @@ module.exports = {
         "exceptRange": true
       },
     ],
+    "import/prefer-default-export": 0,
   },
 };

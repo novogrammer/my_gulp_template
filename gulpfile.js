@@ -23,6 +23,9 @@ const browserSync = require('browser-sync');
 const del = require('del');
 const path = require('path');
 
+const findBabelConfig = require('find-babel-config');
+
+const babelConfig = findBabelConfig.sync(__dirname);
 
 const IS_HTTPS = false;
 const IS_DEBUG = false;
@@ -132,10 +135,6 @@ gulp.task('pug', () => gulp
 
 
 function babelifyTaskInternal(full) {
-  const presetEnvConfig = {
-    targets: ['>0.25%', 'not ie <= 10', 'not op_mini all'],
-  };
-
   const source = full ? [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`] : [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`, `!${paths.es6}**/bundle.es6`];
   return gulp
     .src(source)
@@ -148,12 +147,10 @@ function babelifyTaskInternal(full) {
       basedir: paths.es6,
     })
       .transform(babelify, {
+        // jestで参照するためにオプションを`.babelrc`へ移動。
+        ...babelConfig.config,
+        // babelify独自オプションなので `.babelrc`には書けない。
         global: true,
-        presets: [
-          ['@babel/preset-env', presetEnvConfig],
-        ],
-        plugins: [
-        ],
       // sourceMaps:"file",
       })
       .transform(envify({
