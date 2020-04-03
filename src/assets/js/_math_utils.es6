@@ -48,11 +48,10 @@ export function getCenterOfRect(rect) {
 export function scaledRect(rectOriginal, rectTarget, targetRatio) {
   const width = rectOriginal.width * targetRatio;
   const height = rectOriginal.height * targetRatio;
-  const cx = rectTarget.x + rectTarget.width * 0.5;
-  const cy = rectTarget.y + rectTarget.height * 0.5;
+  const center = getCenterOfRect(rectTarget);
   const rect = {
-    x: cx - width * 0.5,
-    y: cy - height * 0.5,
+    x: center.x - width * 0.5,
+    y: center.y - height * 0.5,
     width,
     height,
   };
