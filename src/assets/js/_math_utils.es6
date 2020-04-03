@@ -30,6 +30,21 @@ export function map(inputValue, inputMin, inputMax, outputMin, outputMax, clamp 
   return outputValue;
 }
 
+export function getCenterOfRect(rect) {
+  const {
+    x,
+    y,
+    width,
+    height,
+  } = rect;
+  const cx = x + width * 0.5;
+  const cy = y + height * 0.5;
+  return {
+    x: cx,
+    y: cy,
+  };
+}
+
 export function scaledRect(rectOriginal, rectTarget, targetRatio) {
   const width = rectOriginal.width * targetRatio;
   const height = rectOriginal.height * targetRatio;
