@@ -160,8 +160,7 @@ function babelifyTaskInternal(full) {
         if (err) { return callback(err); }
         // eslint-disable-next-line no-param-reassign
         file.contents = res;
-        callback(null, file);
-        return null;
+        return callback(null, file);
       })
       .on('error', (err) => {
         console.log(`Error : ${err.message}`);
