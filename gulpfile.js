@@ -3,6 +3,7 @@ const gulp = require('gulp');
 const gulpFlatmap = require('gulp-flatmap');
 const sass = require('gulp-sass');
 const assetFunctions = require('node-sass-asset-functions');
+const autoprefixer = require('gulp-autoprefixer');
 // "Pug" was renamed from "Jade".
 // see https://github.com/pugjs/pug
 const pug = require('gulp-pug');
@@ -109,6 +110,11 @@ gulp.task('scss', () => {
           }),
         }));
     }))
+    .pipe(
+      autoprefixer({
+        cascade: false,
+      }),
+    )
     .pipe(gulp.dest(paths.css));
 });
 

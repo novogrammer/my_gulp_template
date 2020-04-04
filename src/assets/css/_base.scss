@@ -33,18 +33,18 @@ $ALPHA_IN_DARK: 0.9;
 }
 
 @mixin alpha {
-  @include transition(all 0.3s ease);
+  transition: all 0.3s ease;
   &:hover {
-    @include opacity($ALPHA);
     cursor: pointer;
+    opacity: $ALPHA;
   }
 }
 
 @mixin alphaInDark {
-  @include transition(all 0.3s ease);
+  transition: all 0.3s ease;
   &:hover {
-    @include opacity($ALPHA_IN_DARK);
     cursor: pointer;
+    opacity: $ALPHA_IN_DARK;
   }
 }
 
