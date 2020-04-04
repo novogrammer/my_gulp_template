@@ -29,5 +29,7 @@ module.exports = {
       },
     ],
     "import/prefer-default-export": 0,
+    "func-names": 0,
+    "no-param-reassign": 0,
   },
 };
