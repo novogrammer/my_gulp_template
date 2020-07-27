@@ -8,6 +8,12 @@ $LINK_COLOR: #c80000;
 $ALPHA: 0.6;
 $ALPHA_IN_DARK: 0.9;
 
+$PC_BREAK_WIDTH: 768px;
+
+$SP_WIDTH: 750px;
+//vw算出用
+$PX_TO_VW_SP: 100vw / $SP_WIDTH;
+
 @mixin blockAnchor {
   a {
     display: block;
@@ -78,4 +84,10 @@ $ALPHA_IN_DARK: 0.9;
 @mixin fontSerif() {
   font-family: "Times New Roman", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3",
     "Hiragino Mincho ProN", "メイリオ", Meiryo, serif;
+}
+
+@mixin mqpc() {
+  @media screen and (min-width: $PC_BREAK_WIDTH) {
+    @content;
+  }
 }
