@@ -29,7 +29,7 @@ const findBabelConfig = require('find-babel-config');
 const babelConfig = findBabelConfig.sync(__dirname);
 
 const IS_HTTPS = false;
-const IS_DEBUG = false;
+const IS_DEBUG = true;
 
 const paths = {
   src: 'src/',
@@ -157,7 +157,7 @@ function babelifyTaskInternal(full) {
         ...babelConfig.config,
         // babelify独自オプションなので `.babelrc`には書けない。
         global: true,
-      // sourceMaps:"file",
+        // sourceMaps:"file",
       })
       .transform(envify({
         NODE_ENV: (IS_DEBUG ? 'development' : 'production'),
