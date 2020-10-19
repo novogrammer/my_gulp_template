@@ -15,23 +15,8 @@ const promiseWindowLoad = new Promise((resolve) => {
 
 $(() => {
   const emitter = new EventEmitter();
-  emitter.on('begin intro', () => {
-    if (IS_DEBUG) {
-      console.log('begin intro');
-    }
-    $('#LoadingMask').fadeOut();
-  });
-  emitter.on('end intro', () => {
-    if (IS_DEBUG) {
-      console.log('end intro');
-    }
-    $('#IntroMask').fadeOut();
-    $('#Main').css({
-      position: 'relative', width: 'auto', height: 'auto', overflow: 'visible',
-    });
-  });
   const promises = [];
-  promises.push(promiseWindowLoad);
+  // promises.push(promiseWindowLoad);
   // promises.push(TypeSquareAdapter.load());
   promises.push(App.load());
   Promise.all(promises).then(() => {

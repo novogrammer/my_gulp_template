@@ -14,17 +14,10 @@ export default class App {
     this.emitter = emitter;
     this.previousSize = null;
     this.previousScrollTop = null;
-    this.setupIntro();
     this.setupStats();
     this.setupEvents();
   }
 
-  setupIntro() {
-    this.emitter.emit('begin intro');
-    setTimeout(() => {
-      this.emitter.emit('end intro');
-    }, 2 * 1000);
-  }
 
   setupStats() {
     this.stats = new Stats();
