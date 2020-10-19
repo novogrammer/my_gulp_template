@@ -9,7 +9,7 @@ const {
   $,
 } = window;
 
-export default class Game {
+export default class App {
   constructor(emitter) {
     this.emitter = emitter;
     this.previousSize = null;
