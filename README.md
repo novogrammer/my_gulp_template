@@ -6,7 +6,9 @@ my_gulp_template
 ご自由にどうぞ。
 
 ## 前提
-* nodejs
+* Node.js 10.x
+    * `.node-version`が使えるnodenvなどを推奨
+
 
 ## 導入
     npm install
