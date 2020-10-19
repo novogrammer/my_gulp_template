@@ -14,4 +14,4 @@ my_gulp_template
     npm install
 
 ## 実行
-    gulp
+    npx gulp
