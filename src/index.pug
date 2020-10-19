@@ -8,10 +8,14 @@ block append styles
 block append scripts
   script(src=relRoot+"assets/js/index.js")
 block main
-  .images
-    img(src="http://dummyimage.com/192x108/ff0000/0011ff.png&text=image01" alt="")
-    img(src="http://dummyimage.com/192x108/ff0000/0011ff.png&text=image02" alt="")
-    img(src="http://dummyimage.com/192x108/ff0000/0011ff.png&text=image03" alt="")
-  section.section-dummy
-    h1.section-dummy__title ダミータイトル
-    p.section-dummy__text ダミーテキスト
+  .dummy-background-images
+    .dummy-background-images__image.dummy-background-images__image--image01 イメージ01
+    .dummy-background-images__image.dummy-background-images__image--image02 イメージ02
+    .dummy-background-images__image.dummy-background-images__image--image03 イメージ03
+  .dummy-images
+    img.dummy-images__image.dummy-images__image--image01(src=relRoot+"assets/img/dummy/dummy-images__image--image01.png" alt="イメージ01")
+    img.dummy-images__image.dummy-images__image--image02(src=relRoot+"assets/img/dummy/dummy-images__image--image02.png" alt="イメージ02")
+    img.dummy-images__image.dummy-images__image--image03(src=relRoot+"assets/img/dummy/dummy-images__image--image03.png" alt="イメージ03")
+  section.dummy-section
+    h1.dummy-section__title ダミータイトル
+    p.dummy-section__text ダミーテキスト
