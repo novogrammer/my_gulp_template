@@ -76,7 +76,7 @@ $PX_TO_VW_SP: 100vw / $SP_WIDTH;
   }
 }
 
-@mixin fontSanSerif() {
+@mixin fontSansSerif() {
   font-family: Helvetica, "ヒラギノ角ゴ Pro W3", "ヒラギノ角ゴ W3",
     "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, sans-serif;
 }
