@@ -26,10 +26,17 @@ html(lang="ja")
       link(rel="shortcut icon" href=faviconUrl)
 
     block styles
-      link(rel="stylesheet" href=relRoot+"assets/css/common.css")
+      link(rel="stylesheet" href=relRoot+"assets/css/style.css")
     block scripts
       script(src=relRoot+"assets/js/bundle.js")
       script(src=relRoot+"assets/js/common.js")
   body
-    #Main
-      block main
+    .l-wrapper
+      .l-header
+        .c-header-logo
+          a(href=relRoot) ロゴ
+      .l-main
+        block main
+      .l-footer.c-footer-area
+        .c-footer-area__copyright
+          |&copy; 20XX novogrammer

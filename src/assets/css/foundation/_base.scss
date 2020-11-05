@@ -1,3 +1,4 @@
+// 定義のみのファイル
 @charset "utf-8";
 @import "compass";
 @import "animation/core";
@@ -91,3 +92,8 @@ $PX_TO_VW_SP: 100vw / $SP_WIDTH;
     @content;
   }
 }
+// @mixin mqsp() {
+//   @media screen and (max-width: $PC_BREAK_WIDTH - 1px) {
+//     @content;
+//   }
+// }
