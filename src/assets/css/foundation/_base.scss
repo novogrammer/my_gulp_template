@@ -9,11 +9,15 @@ $LINK_COLOR: #c80000;
 $ALPHA: 0.6;
 $ALPHA_IN_DARK: 0.9;
 
-$PC_BREAK_WIDTH: 768px;
+$BREAK_WIDTH_PC: 768px;
 
-$SP_WIDTH: 750px;
+$WIDTH_SP: 750px;
 //vw算出用
-$PX_TO_VW_SP: 100vw / $SP_WIDTH;
+$PX_TO_VW_SP: 100vw / $WIDTH_SP;
+
+$WIDTH_PC: 1500px;
+//vw算出用
+$PX_TO_VW_PC: 100vw / $WIDTH_PC;
 
 @mixin blockAnchor {
   a {
@@ -88,12 +92,12 @@ $PX_TO_VW_SP: 100vw / $SP_WIDTH;
 }
 
 @mixin mqpc() {
-  @media screen and (min-width: $PC_BREAK_WIDTH) {
+  @media screen and (min-width: $BREAK_WIDTH_PC) {
     @content;
   }
 }
 // @mixin mqsp() {
-//   @media screen and (max-width: $PC_BREAK_WIDTH - 1px) {
+//   @media screen and (max-width: $BREAK_WIDTH_PC - 1px) {
 //     @content;
 //   }
 // }
