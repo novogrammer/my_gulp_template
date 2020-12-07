@@ -48,41 +48,19 @@ const paths = {
 };
 
 
-gulp.task('watch', () => {
-  gulp.watch([`${paths.src_image}**/*`], gulp.task('copy_image'));
-  gulp.watch([`${paths.scss}**/*.scss`], gulp.task('scss'));
-  gulp.watch([`${paths.pug}**/*.pug`], gulp.task('pug'));
-  // gulp.watch([paths.es6+"**/*.es6"],gulp.task('babel'))
-  gulp.watch([`${paths.es6}**/*.es6`], gulp.task('babelify-for-watch'));
+const clean_task = () => del([paths.dist]);
+exports.clean = clean_task;
 
-  browserSync({
-    notify: false,
-    port: 3000,
-    https: IS_HTTPS,
-    server: {
-      baseDir: [paths.dist, paths.raw_contents],
-      routes: {
-      },
-    },
-    ghostMode: {
-      clicks: false,
-      forms: false,
-      scroll: false,
-    },
-    watch: true,
-  });
-});
+const copy_image_task = () => gulp.src([`${paths.src_image}**`], { base: paths.src_image })
+  .pipe(gulp.dest(paths.dist_image));
+exports.copy_image = copy_image_task;
 
-gulp.task('clean', () => del([paths.dist]));
+const copy_lib_task = () => gulp.src([`${paths.src_lib}**`], { base: paths.src_lib })
+  .pipe(gulp.dest(paths.dist_lib));
+exports.copy_lib = copy_lib_task;
 
 
-gulp.task('copy_image', () => gulp.src([`${paths.src_image}**`], { base: paths.src_image })
-  .pipe(gulp.dest(paths.dist_image)));
-gulp.task('copy_lib', () => gulp.src([`${paths.src_lib}**`], { base: paths.src_lib })
-  .pipe(gulp.dest(paths.dist_lib)));
-
-
-gulp.task('scss', () => {
+const scss_task = () => {
   const pathCssToImage = path.relative(paths.css, paths.dist_image);
   const cacheBusterString = `${Math.floor(Date.now() / 1000)}`;
   return gulp
@@ -116,9 +94,10 @@ gulp.task('scss', () => {
       }),
     )
     .pipe(gulp.dest(paths.css));
-});
+};
+exports.scss = scss_task;
 
-gulp.task('pug', () => gulp
+const pug_task = () => gulp
   .src([`${paths.pug}**/*.pug`, `!${paths.pug}**/_*.pug`])
   .pipe(plumber({
     errorHandler: notify.onError('Error: <%= error.message %>'),
@@ -137,8 +116,8 @@ gulp.task('pug', () => gulp
       // indent_inner_html:true,
       indent_size: 2,
     }))))
-  .pipe(gulp.dest(paths.html)));
-
+  .pipe(gulp.dest(paths.html));
+exports.pug = pug_task;
 
 function babelifyTaskInternal(full) {
   const source = full ? [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`] : [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`, `!${paths.es6}**/bundle.es6`];
@@ -178,27 +157,55 @@ function babelifyTaskInternal(full) {
     .pipe(gulp.dest(paths.js));
 }
 
-gulp.task('babelify', () => babelifyTaskInternal.call(null, true));
+const babelify_task = () => babelifyTaskInternal.call(null, true);
+exports.babelify = babelify_task;
+const babelify_for_watch_task = () => babelifyTaskInternal.call(null, false);
+exports.babelify_for_watch = babelify_for_watch_task;
 
-gulp.task('babelify-for-watch', () => babelifyTaskInternal.call(null, false));
 
 
-gulp.task('build', gulp.series(
-  'clean',
+const build_task = gulp.series(
+  clean_task,
   gulp.parallel(
-    'copy_image',
-    'copy_lib',
+    copy_image_task,
+    copy_lib_task,
   ),
   gulp.parallel(
-    'scss',
-    // pug
-    'pug',
-    'babelify',
+    scss_task,
+    pug_task,
+    babelify_task,
   ),
-));
+);
+exports.build = build_task;
+
+const watch_task = () => {
+  gulp.watch([`${paths.src_image}**/*`], copy_image_task);
+  gulp.watch([`${paths.scss}**/*.scss`], scss_task);
+  gulp.watch([`${paths.pug}**/*.pug`], pug_task);
+  gulp.watch([`${paths.es6}**/*.es6`], babelify_for_watch_task);
+
+  browserSync({
+    notify: false,
+    port: 3000,
+    https: IS_HTTPS,
+    server: {
+      baseDir: [paths.dist, paths.raw_contents],
+      routes: {
+      },
+    },
+    ghostMode: {
+      clicks: false,
+      forms: false,
+      scroll: false,
+    },
+    watch: true,
+  });
+};
+exports.watch = watch_task;
 
 
-gulp.task('default', gulp.series(
-  'build',
-  'watch',
-));
+
+exports.default = gulp.series(
+  build_task,
+  watch_task,
+);
