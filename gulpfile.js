@@ -76,7 +76,6 @@ const scss_task = () => {
           sourceComments: false,
           includePaths: [
             paths.scss,
-            './node_modules/compass-mixins/lib',
           ],
           functions: assetFunctions({
             images_path: paths.dist_image,

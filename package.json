@@ -19,7 +19,6 @@
     "babelify": "^10.0.0",
     "browser-sync": "^2.26.5",
     "browserify": "^13.0.0",
-    "compass-mixins": "^0.12.10",
     "del": "^2.2.0",
     "envify": "^4.0.0",
     "eslint": "^6.8.0",
