@@ -1,8 +1,8 @@
 
 const gulp = require('gulp');
 const gulpFlatmap = require('gulp-flatmap');
-const sass = require('gulp-sass');
-const assetFunctions = require('node-sass-asset-functions');
+const sass = require('gulp-dart-sass');
+const assetFunctions = require('@localnerve/sass-asset-functions');
 const autoprefixer = require('gulp-autoprefixer');
 // "Pug" was renamed from "Jade".
 // see https://github.com/pugjs/pug
@@ -72,7 +72,7 @@ const scss_task = () => {
       const relRoot = path.relative(path.dirname(file.path), paths.scss);
       return stream
         .pipe(sass({
-          outputStyle: 'nested',
+          outputStyle: 'expanded',
           sourceComments: false,
           includePaths: [
             paths.scss,
