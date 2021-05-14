@@ -90,3 +90,13 @@ export function containRect(rectOriginal, rectTarget) {
   const targetRatio = containRectRatio(rectOriginal, rectTarget);
   return scaledRect(rectOriginal, rectTarget, targetRatio);
 }
+
+export function range(start, stop) {
+  if (stop == null) {
+    return range(0, start);
+  }
+  if (stop < start) {
+    throw new Error("stop < start");
+  }
+  return [...Array(stop - start).keys()].map((e) => e + start);
+}

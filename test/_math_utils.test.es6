@@ -10,6 +10,7 @@ import {
   coverRect,
   containRectRatio,
   containRect,
+  range,
 } from '../src/assets/js/_math_utils.es6';
 
 const RANDOM_VALUE = 0.123456789;
@@ -298,3 +299,18 @@ describe('containRect', () => {
     expect(result.height).toBeCloseTo(rectOriginal.height / 2, 5);
   });
 });
+describe('range', () => {
+  test('range 通常', () => {
+    expect(range(0, 3)).toEqual([0, 1, 2]);
+    expect(range(2, 4)).toEqual([2, 3]);
+    expect(range(-2, 3)).toEqual([-2, -1, 0, 1, 2]);
+  });
+  test('range stopのみ', () => {
+    expect(range(3)).toEqual([0, 1, 2]);
+  });
+  test('range 逆', () => {
+    expect(() => range(3, 0)).toThrow();
+    expect(() => range(-3)).toThrow();
+  });
+});
+
