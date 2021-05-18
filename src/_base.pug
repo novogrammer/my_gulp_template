@@ -7,20 +7,29 @@ html(lang="ja")
     - var twitterName=""
     - var faviconUrl=""
     - var ogpUrl=""
+    - var siteName=""
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE-edge")
     meta(name="viewport" content="width=750,user-scalable=no")
     title #{title}
     meta(name="description" content=description)
+    meta(property="og:locale" content="ja_JP")
+    meta(property="og:type" content="website")
     meta(property="og:title" content=title)
-    meta(property="og:image" content=ogpImage)
+    -if(!!ogpImage)
+      meta(property="og:image" content=ogpImage)
+    -if(!!ogpUrl)
+      meta(property="og:url" content=ogpUrl)
+    -if(!!siteName)
+      meta(property="og:site_name", content=siteName)
     -if(!!ogpUrl)
       link(rel="canonical" href=ogpUrl)
     meta(name="twitter:card" content="summary_large_image")
     -if(!!twitterName)
       meta(name="twitter:site" content="@"+twitterName)
-    meta(name="twitter:image" content=ogpImage)
+    -if(!!ogpImage)
+      meta(name="twitter:image" content=ogpImage)
     meta(name="twitter:description" content=description)
     -if(!!faviconUrl)
       link(rel="shortcut icon" href=faviconUrl)
