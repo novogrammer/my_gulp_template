@@ -20,11 +20,12 @@ export function map(
   inputMax,
   outputMin,
   outputMax,
-  doClamp = false,
+  doClamp = false
 ) {
-  let outputValue = ((inputValue - inputMin) / (inputMax - inputMin))
-      * (outputMax - outputMin)
-    + outputMin;
+  let outputValue =
+    ((inputValue - inputMin) / (inputMax - inputMin)) *
+      (outputMax - outputMin) +
+    outputMin;
   if (doClamp) {
     if (outputMin < outputMax) {
       outputValue = Math.min(outputValue, outputMax);
@@ -38,9 +39,7 @@ export function map(
 }
 
 export function getCenterOfRect(rect) {
-  const {
-    x, y, width, height,
-  } = rect;
+  const { x, y, width, height } = rect;
   const cx = x + width * 0.5;
   const cy = y + height * 0.5;
   return {
@@ -65,9 +64,10 @@ export function scaledRect(rectOriginal, rectTarget, targetRatio) {
 export function coverRectRatio(rectOriginal, rectTarget) {
   const aspectOriginal = rectOriginal.height / rectOriginal.width;
   const aspectTarget = rectTarget.height / rectTarget.width;
-  const targetRatio = aspectTarget < aspectOriginal
-    ? rectTarget.width / rectOriginal.width
-    : rectTarget.height / rectOriginal.height;
+  const targetRatio =
+    aspectTarget < aspectOriginal
+      ? rectTarget.width / rectOriginal.width
+      : rectTarget.height / rectOriginal.height;
   return targetRatio;
 }
 export function coverRect(rectOriginal, rectTarget) {
@@ -77,9 +77,10 @@ export function coverRect(rectOriginal, rectTarget) {
 export function containRectRatio(rectOriginal, rectTarget) {
   const aspectOriginal = rectOriginal.height / rectOriginal.width;
   const aspectTarget = rectTarget.height / rectTarget.width;
-  const targetRatio = aspectOriginal < aspectTarget
-    ? rectTarget.width / rectOriginal.width
-    : rectTarget.height / rectOriginal.height;
+  const targetRatio =
+    aspectOriginal < aspectTarget
+      ? rectTarget.width / rectOriginal.width
+      : rectTarget.height / rectOriginal.height;
   return targetRatio;
 }
 export function containRect(rectOriginal, rectTarget) {
@@ -92,7 +93,7 @@ export function range(start, stop) {
     return range(0, start);
   }
   if (stop < start) {
-    throw new Error('stop < start');
+    throw new Error("stop < start");
   }
   return [...Array(stop - start).keys()].map((e) => e + start);
 }

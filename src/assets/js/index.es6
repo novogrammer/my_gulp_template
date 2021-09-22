@@ -1,6 +1,6 @@
 // import { IS_DEBUG } from './_constants.es6';
 
-import App from './_App.es6';
+import App from "./_App.es6";
 // import TypeSquareAdapter from "./_TypeSquareAdapter.es6";
 const { $, EventEmitter } = window;
 
