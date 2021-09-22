@@ -11,7 +11,20 @@ my_gulp_template
 
 
 ## 導入
-    npm install
+```
+$ npm install
+```
 
 ## 実行
-    npx gulp
+```
+$ npx gulp
+```
+または
+```
+$ npm start
+```
+
+## コーディングスタイルを揃える
+```
+$ npm run fix
+```
