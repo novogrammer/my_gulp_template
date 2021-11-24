@@ -19,6 +19,7 @@ const browserify = require('browserify');
 const envify = require('envify/custom');
 const babelify = require('babelify');
 const through2 = require('through2');
+const tsify = require("tsify");
 
 const browserSync = require('browser-sync');
 const del = require('del');
@@ -39,6 +40,7 @@ const paths = {
   css: 'dist/assets/css/',
   pug: 'src/',
   html: 'dist/',
+  ts: 'src/assets/js/',
   es6: 'src/assets/js/',
   js: 'dist/assets/js/',
   dist_image: 'dist/assets/img/',
@@ -118,6 +120,40 @@ const pug_task = () => gulp
   .pipe(gulp.dest(paths.html));
 exports.pug = pug_task;
 
+const tsify_task = () => gulp
+  .src(`${paths.ts}**/*.ts`, `!${paths.ts}**/_*.ts`)
+  .pipe(plumber({
+    errorHandler: notify.onError('Error: <%= error.message %>'),
+  }))
+  .pipe(through2.obj((file, encode, callback) => browserify({
+    entries: file.path,
+    // debug:true,
+    basedir: paths.es6,
+    })
+    // .plugin(tsify, { noImplicitAny: true })
+    .plugin(tsify, { target: 'es6' })
+    .transform(envify({
+      NODE_ENV: (IS_DEBUG ? 'development' : 'production'),
+    }))
+    .bundle((err, res) => {
+      if (err) { return callback(err); }
+      // eslint-disable-next-line no-param-reassign
+      file.contents = res;
+      return callback(null, file);
+    })
+    .on('error', (err) => {
+      console.log(`Error : ${err.message}`);
+    })))
+  .pipe(gulpif(!IS_DEBUG, uglify({ preserveComments: uglifySaveLicense })))
+  .pipe(rename({
+    extname: '.js',
+  }))
+  .pipe(gulp.dest(paths.js));
+
+
+exports.tsify = tsify_task;
+
+
 function babelifyTaskInternal(full) {
   const source = full ? [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`] : [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`, `!${paths.es6}**/bundle.es6`];
   return gulp
@@ -173,6 +209,7 @@ const build_task = gulp.series(
     scss_task,
     pug_task,
     babelify_task,
+    tsify_task,
   ),
 );
 exports.build = build_task;
@@ -182,6 +219,7 @@ const watch_task = () => {
   gulp.watch([`${paths.scss}**/*.scss`], scss_task);
   gulp.watch([`${paths.pug}**/*.pug`], pug_task);
   gulp.watch([`${paths.es6}**/*.es6`], babelify_for_watch_task);
+  gulp.watch([`${paths.ts}**/*.ts`], tsify_task);
 
   browserSync({
     notify: false,
