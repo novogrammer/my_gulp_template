@@ -144,7 +144,11 @@ const tsify_task = () => gulp
     .on('error', (err) => {
       console.log(`Error : ${err.message}`);
     })))
-  .pipe(gulpif(!IS_DEBUG, uglify({ preserveComments: uglifySaveLicense })))
+  .pipe(gulpif(!IS_DEBUG, uglify({
+    output:{
+      comments: uglifySaveLicense,
+    },
+  })))
   .pipe(rename({
     extname: '.js',
   }))
@@ -185,7 +189,11 @@ function babelifyTaskInternal(full) {
       .on('error', (err) => {
         console.log(`Error : ${err.message}`);
       })))
-    .pipe(gulpif(!IS_DEBUG, uglify({ preserveComments: uglifySaveLicense })))
+    .pipe(gulpif(!IS_DEBUG, uglify({
+      output:{
+        comments: uglifySaveLicense,
+      },
+    })))
     .pipe(rename({
       extname: '.js',
     }))
