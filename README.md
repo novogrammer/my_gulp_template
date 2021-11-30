@@ -28,3 +28,21 @@ $ npm start
 ```
 $ npm run fix
 ```
+
+
+# Dockerを使う場合
+
+## Dockerイメージの作成
+```
+$ docker-compose build
+```
+## Dockerコンテナの開始
+npm run startを呼びます
+```
+$ docker-compose up -d
+```
+## Dockerコンテナの終了
+```
+$ docker-compose down
+```
+

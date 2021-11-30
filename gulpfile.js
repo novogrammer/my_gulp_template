@@ -50,7 +50,7 @@ const paths = {
 };
 
 
-const clean_task = () => del([paths.dist]);
+const clean_task = () => del([`${paths.dist}*`]);
 exports.clean = clean_task;
 
 const copy_image_task = () => gulp.src([`${paths.src_image}**`], { base: paths.src_image })
