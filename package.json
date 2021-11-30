@@ -9,6 +9,7 @@
     "stylelint": "stylelint --fix src/**/*.scss",
     "fix": "npm run esformat && npm run eslint && npm run stylelint",
     "start": "gulp",
+    "browserslist-update-db": "npx browserslist@latest --update-db",
     "test": "jest"
   },
   "author": "Yusuke Kawamoto <novogrammer@gmail.com>",
