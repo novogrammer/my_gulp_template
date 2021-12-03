@@ -5,7 +5,7 @@ services:
   app:
     build: .
     restart: always
-    platform: linux/amd64
+    # platform: linux/amd64
     ports:
       - 3000:3000
     volumes:
