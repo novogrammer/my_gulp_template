@@ -1,7 +1,7 @@
-// import { IS_DEBUG } from './_constants.es6';
+// import { IS_DEBUG } from './_constants';
 
-import App from "./_App.es6";
-// import TypeSquareAdapter from "./_TypeSquareAdapter.es6";
+import App from "./_App";
+// import TypeSquareAdapter from "./_TypeSquareAdapter";
 const { $, EventEmitter } = window;
 
 // const promiseWindowLoad = new Promise((resolve) => {

@@ -1,4 +1,4 @@
-import "./_mypolyfill.es6";
+import "./_mypolyfill";
 
 // expose libraries
 window.EventEmitter = require("eventemitter3");

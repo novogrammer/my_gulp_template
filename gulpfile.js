@@ -124,7 +124,7 @@ const tsify_task = () => gulp
   .src(`${paths.ts}**/*.ts`, `!${paths.ts}**/_*.ts`)
   .pipe(plumber({
     errorHandler: notify.onError('Error: <%= error.message %>'),
-    extensions: [".es6", ".ts", ".js"],
+    extensions: [".ts", ".js"],
   }))
   .pipe(through2.obj((file, encode, callback) => browserify({
     entries: file.path,
@@ -167,7 +167,7 @@ exports.tsify = tsify_task;
 
 
 function babelifyTaskInternal(full) {
-  const source = full ? [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`] : [`${paths.es6}**/*.es6`, `!${paths.es6}**/_*.es6`, `!${paths.es6}**/bundle.es6`];
+  const source = full ? [`${paths.es6}**/*.js`, `!${paths.es6}**/_*.js`] : [`${paths.es6}**/*.js`, `!${paths.es6}**/_*.js`, `!${paths.es6}**/bundle.js`];
   return gulp
     .src(source)
     .pipe(plumber({
@@ -234,7 +234,7 @@ const watch_task = () => {
   gulp.watch([`${paths.src_image}**/*`], copy_image_task);
   gulp.watch([`${paths.scss}**/*.scss`], scss_task);
   gulp.watch([`${paths.pug}**/*.pug`], pug_task);
-  gulp.watch([`${paths.es6}**/*.es6`], babelify_for_watch_task);
+  gulp.watch([`${paths.es6}**/*.js`], babelify_for_watch_task);
   gulp.watch([`${paths.ts}**/*.ts`], tsify_task);
 
   browserSync({

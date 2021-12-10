@@ -1,4 +1,4 @@
-import { FPS, IS_DEBUG } from "./_constants.es6";
+import { FPS, IS_DEBUG } from "./_constants";
 
 const { Stats, animate, $ } = window;
 

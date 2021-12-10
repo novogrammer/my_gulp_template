@@ -11,7 +11,7 @@ import {
   containRectRatio,
   containRect,
   range,
-} from '../src/assets/js/_math_utils.es6';
+} from '../src/assets/js/_math_utils';
 
 const RANDOM_VALUE = 0.123456789;
 
