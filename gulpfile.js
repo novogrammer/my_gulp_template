@@ -124,6 +124,7 @@ const tsify_task = () => gulp
   .src(`${paths.ts}**/*.ts`, `!${paths.ts}**/_*.ts`)
   .pipe(plumber({
     errorHandler: notify.onError('Error: <%= error.message %>'),
+    extensions: [".es6", ".ts", ".js"],
   }))
   .pipe(through2.obj((file, encode, callback) => browserify({
     entries: file.path,
@@ -132,6 +133,13 @@ const tsify_task = () => gulp
     })
     // .plugin(tsify, { noImplicitAny: true })
     .plugin(tsify, { target: 'es6' })
+    .transform(babelify, {
+      // jestで参照するためにオプションを`.babelrc`へ移動。
+      ...babelConfig.config,
+      // babelify独自オプションなので `.babelrc`には書けない。
+      global: true,
+      // sourceMaps:"file",
+    })
     .transform(envify({
       NODE_ENV: (IS_DEBUG ? 'development' : 'production'),
     }))
