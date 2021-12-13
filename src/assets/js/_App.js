@@ -75,13 +75,13 @@ export default class App {
     this.checkScroll();
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line
   onScroll() {}
 
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line
   onResize() {}
 
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line
   onTick() {}
 
   static load() {
