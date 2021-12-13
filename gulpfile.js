@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable camelcase */
 
 const gulp = require('gulp');
 const gulpFlatmap = require('gulp-flatmap');
