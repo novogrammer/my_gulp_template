@@ -40,9 +40,8 @@ const paths = {
   css: 'dist/assets/css/',
   pug: 'src/',
   html: 'dist/',
-  ts: 'src/assets/js/',
-  es6: 'src/assets/js/',
-  js: 'dist/assets/js/',
+  src_js: 'src/assets/js/',
+  dist_js: 'dist/assets/js/',
   dist_image: 'dist/assets/img/',
   src_image: 'src/assets/img/',
   src_lib: 'src/assets/lib/',
@@ -120,54 +119,15 @@ const pug_task = () => gulp
   .pipe(gulp.dest(paths.html));
 exports.pug = pug_task;
 
-const tsify_task = () => gulp
-  .src(`${paths.ts}**/*.ts`, `!${paths.ts}**/_*.ts`)
-  .pipe(plumber({
-    errorHandler: notify.onError('Error: <%= error.message %>'),
-    extensions: [".ts", ".js"],
-  }))
-  .pipe(through2.obj((file, encode, callback) => browserify({
-    entries: file.path,
-    // debug:true,
-    basedir: paths.es6,
-    })
-    // .plugin(tsify, { noImplicitAny: true })
-    .plugin(tsify, { target: 'es6' })
-    .transform(babelify, {
-      // jestで参照するためにオプションを`.babelrc`へ移動。
-      ...babelConfig.config,
-      // babelify独自オプションなので `.babelrc`には書けない。
-      global: true,
-      // sourceMaps:"file",
-    })
-    .transform(envify({
-      NODE_ENV: (IS_DEBUG ? 'development' : 'production'),
-    }))
-    .bundle((err, res) => {
-      if (err) { return callback(err); }
-      // eslint-disable-next-line no-param-reassign
-      file.contents = res;
-      return callback(null, file);
-    })
-    .on('error', (err) => {
-      console.log(`Error : ${err.message}`);
-    })))
-  .pipe(gulpif(!IS_DEBUG, uglify({
-    output:{
-      comments: uglifySaveLicense,
-    },
-  })))
-  .pipe(rename({
-    extname: '.js',
-  }))
-  .pipe(gulp.dest(paths.js));
-
-
-exports.tsify = tsify_task;
-
 
 function babelifyTaskInternal(full) {
-  const source = full ? [`${paths.es6}**/*.js`, `!${paths.es6}**/_*.js`] : [`${paths.es6}**/*.js`, `!${paths.es6}**/_*.js`, `!${paths.es6}**/bundle.js`];
+  const source = full ? [
+    `${paths.src_js}**/*.js`, `!${paths.src_js}**/_*.js`,
+    `${paths.src_js}**/*.ts`, `!${paths.src_js}**/_*.ts`,
+  ] : [
+    `${paths.src_js}**/*.js`, `!${paths.src_js}**/_*.js`, `!${paths.src_js}**/bundle.js`,
+    `${paths.src_js}**/*.ts`, `!${paths.src_js}**/_*.ts`, `!${paths.src_js}**/bundle.ts`,
+  ];
   return gulp
     .src(source)
     .pipe(plumber({
@@ -176,8 +136,10 @@ function babelifyTaskInternal(full) {
     .pipe(through2.obj((file, encode, callback) => browserify({
       entries: file.path,
       // debug:true,
-      basedir: paths.es6,
+      basedir: paths.src_js,
+      extensions: [".ts", ".js"],
     })
+      .plugin(tsify, { target: 'es6' })
       .transform(babelify, {
         // jestで参照するためにオプションを`.babelrc`へ移動。
         ...babelConfig.config,
@@ -205,7 +167,7 @@ function babelifyTaskInternal(full) {
     .pipe(rename({
       extname: '.js',
     }))
-    .pipe(gulp.dest(paths.js));
+    .pipe(gulp.dest(paths.dist_js));
 }
 
 const babelify_task = () => babelifyTaskInternal.call(null, true);
@@ -225,7 +187,6 @@ const build_task = gulp.series(
     scss_task,
     pug_task,
     babelify_task,
-    tsify_task,
   ),
 );
 exports.build = build_task;
@@ -234,8 +195,7 @@ const watch_task = () => {
   gulp.watch([`${paths.src_image}**/*`], copy_image_task);
   gulp.watch([`${paths.scss}**/*.scss`], scss_task);
   gulp.watch([`${paths.pug}**/*.pug`], pug_task);
-  gulp.watch([`${paths.es6}**/*.js`], babelify_for_watch_task);
-  gulp.watch([`${paths.ts}**/*.ts`], tsify_task);
+  gulp.watch([`${paths.src_js}**/*.js`, `${paths.src_js}**/*.ts`], babelify_for_watch_task);
 
   browserSync({
     notify: false,
