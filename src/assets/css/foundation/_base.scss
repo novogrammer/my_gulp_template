@@ -35,10 +35,12 @@ $PX_TO_VW_PC: 100vw / $WIDTH_PC;
 @mixin imageDimension($image, $ratio: 1) {
   $width: image-width($image) * $ratio;
   $height: image-height($image) * $ratio;
+
   @if unit($width) == "px" {
     $width: round($width);
     $height: round($height);
   }
+
   width: $width;
   height: $height;
 }
@@ -49,6 +51,7 @@ $PX_TO_VW_PC: 100vw / $WIDTH_PC;
   background-size: contain;
   @include imageDimension($image, $ratio);
 }
+
 @mixin singleSprite($image, $ratio: 1, $display: block) {
   @include hide-text();
   @include singleSpriteWithText($image, $ratio, $display);
@@ -56,6 +59,7 @@ $PX_TO_VW_PC: 100vw / $WIDTH_PC;
 
 @mixin alpha {
   transition: all 0.3s ease;
+
   &:hover {
     cursor: pointer;
     opacity: $ALPHA;
@@ -64,6 +68,7 @@ $PX_TO_VW_PC: 100vw / $WIDTH_PC;
 
 @mixin alphaInDark {
   transition: all 0.3s ease;
+
   &:hover {
     cursor: pointer;
     opacity: $ALPHA_IN_DARK;
@@ -78,6 +83,7 @@ $PX_TO_VW_PC: 100vw / $WIDTH_PC;
   a {
     color: $color;
     text-decoration: none;
+
     &:hover {
       color: $color;
       text-decoration: none;
@@ -86,7 +92,8 @@ $PX_TO_VW_PC: 100vw / $WIDTH_PC;
 }
 
 @mixin fontSansSerif() {
-  font-family: Helvetica, "ヒラギノ角ゴ Pro W3", "ヒラギノ角ゴ W3",
+  font-family: Helvetica, "Yu Gothic Medium", "游ゴシック Medium", YuGothic,
+    "游ゴシック体", "ヒラギノ角ゴ Pro W3", "ヒラギノ角ゴ W3",
     "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, sans-serif;
 }
 
@@ -100,6 +107,7 @@ $PX_TO_VW_PC: 100vw / $WIDTH_PC;
     @content;
   }
 }
+
 // @mixin mqsp() {
 //   @media screen and (max-width: $BREAK_WIDTH_PC - 1px) {
 //     @content;
