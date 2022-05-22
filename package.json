@@ -6,7 +6,7 @@
   "scripts": {
     "esformat": "prettier --write src/**/*.js src/**/*.ts",
     "eslint": "eslint --fix src/**/*.js src/**/*.ts",
-    "stylelint": "stylelint --fix src/**/*.scss",
+    "stylelint": "stylelint stylelint --formatter verbose --fix 'src/**/*.scss'",
     "fix": "npm run esformat && npm run eslint && npm run stylelint",
     "start": "gulp",
     "browserslist-update-db": "npx browserslist@latest --update-db",
@@ -48,7 +48,7 @@
     "prettier": "^2.4.1",
     "randomatic": "^3.0.0",
     "sshpk": "^1.13.2",
-    "stylelint": "^14.8.3",
+    "stylelint": "^14.8.2",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-twbs-bootstrap": "^3.0.1",
     "stylelint-prettier": "^2.0.0",
