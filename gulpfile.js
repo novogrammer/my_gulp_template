@@ -194,10 +194,13 @@ const build_task = gulp.series(
 exports.build = build_task;
 
 const watch_task = () => {
-  gulp.watch([`${paths.src_image}**/*`], copy_image_task);
-  gulp.watch([`${paths.scss}**/*.scss`], scss_task);
-  gulp.watch([`${paths.pug}**/*.pug`], pug_task);
-  gulp.watch([`${paths.src_js}**/*.js`, `${paths.src_js}**/*.ts`], babelify_for_watch_task);
+  const watchOptions = {
+    useFsEvents: false,
+  };
+  gulp.watch([`${paths.src_image}**/*`], watchOptions, copy_image_task);
+  gulp.watch([`${paths.scss}**/*.scss`], watchOptions, scss_task);
+  gulp.watch([`${paths.pug}**/*.pug`], watchOptions, pug_task);
+  gulp.watch([`${paths.src_js}**/*.js`, `${paths.src_js}**/*.ts`], watchOptions, babelify_for_watch_task);
 
   browserSync({
     notify: false,
