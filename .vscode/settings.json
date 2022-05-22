@@ -16,7 +16,12 @@
   "html.format.wrapLineLength": 0,
   "problems.showCurrentInStatus": true,
   "scss.validate": false,
-  "stylelint.autoFixOnSave": true,
   "stylelint.enable": true,
-  "stylelint.useLocal": true,
+  "stylelint.validate": [
+    "css",
+    "scss"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
 }
