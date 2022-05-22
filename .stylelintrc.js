@@ -1,7 +1,7 @@
 module.exports = {
   plugins: ['stylelint-scss'],
   extends: [
-    'stylelint-config-twbs-bootstrap/scss',
+    'stylelint-config-twbs-bootstrap',
     'stylelint-prettier/recommended',
   ],
   rules: {
@@ -10,5 +10,6 @@ module.exports = {
     'block-no-empty': null,
     'scss/dollar-variable-pattern': null,
     'scss/at-function-pattern': null,
+    'function-no-unknown': null,
   },
 };

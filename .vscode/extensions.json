@@ -1,7 +1,7 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "hex-ci.stylelint-plus",
+    "stylelint.vscode-stylelint",
   ],
   "unwantedRecommendations": [
     "hookyqr.beautify",
