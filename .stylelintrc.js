@@ -1,15 +1,15 @@
 module.exports = {
-  plugins: ['stylelint-scss'],
+  plugins: ["stylelint-scss"],
   extends: [
-    'stylelint-config-twbs-bootstrap',
-    'stylelint-prettier/recommended',
+    "stylelint-config-twbs-bootstrap",
+    "stylelint-prettier/recommended",
   ],
   rules: {
-    'selector-max-id': 1, //TODO: nullで無制限だが・・
-    'unicode-bom': 'never',
-    'block-no-empty': null,
-    'scss/dollar-variable-pattern': null,
-    'scss/at-function-pattern': null,
-    'function-no-unknown': null,
+    "selector-max-id": 1, //TODO: nullで無制限だが・・
+    "unicode-bom": "never",
+    "block-no-empty": null,
+    "scss/dollar-variable-pattern": null,
+    "scss/at-function-pattern": null,
+    "function-no-unknown": null,
   },
 };

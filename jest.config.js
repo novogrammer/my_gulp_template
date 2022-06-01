@@ -1,12 +1,7 @@
-
 module.exports = {
-  moduleFileExtensions: [
-    'js',
-  ],
-  testMatch: [
-    '**/*.test.js',
-  ],
+  moduleFileExtensions: ["js"],
+  testMatch: ["**/*.test.js"],
   transform: {
-    '^.+\\.js$': ['babel-jest'],
+    "^.+\\.js$": ["babel-jest"],
   },
 };
