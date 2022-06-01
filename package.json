@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "esformat": "prettier --write src/**/*.js src/**/*.ts",
-    "eslint": "eslint --fix src/**/*.js src/**/*.ts",
+    "esformat": "prettier --write 'src/**/*.js' 'src/**/*.ts'",
+    "eslint": "eslint --fix 'src/**/*.js' 'src/**/*.ts'",
     "stylelint": "stylelint stylelint --formatter verbose --fix 'src/**/*.scss'",
     "fix": "npm run esformat && npm run eslint && npm run stylelint",
     "start": "gulp",
