@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "esformat": "prettier --write 'src/**/*.js' 'src/**/*.ts'",
-    "eslint": "eslint --fix 'src/**/*.js' 'src/**/*.ts'",
-    "stylelint": "stylelint stylelint --formatter verbose --fix 'src/**/*.scss'",
-    "fix": "npm run esformat && npm run eslint && npm run stylelint",
+    "fix:esformat": "prettier --write 'src/**/*.js' 'src/**/*.ts'",
+    "fix:eslint": "eslint --fix 'src/**/*.js' 'src/**/*.ts'",
+    "fix:stylelint": "stylelint stylelint --formatter verbose --fix 'src/**/*.scss'",
+    "fix": "npm-run-all --sequential fix:*",
     "start": "gulp",
     "browserslist-update-db": "npx browserslist@latest --update-db",
     "test": "jest"
@@ -45,6 +45,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.2",
     "jest": "^27.4.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.4.1",
     "randomatic": "^3.0.0",
     "sshpk": "^1.13.2",
