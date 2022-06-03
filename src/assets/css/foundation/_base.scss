@@ -11,11 +11,11 @@ $BREAK_WIDTH_PC: 768px;
 
 $WIDTH_SP: 750px;
 //vw算出用
-$PX_TO_VW_SP: 100vw / $WIDTH_SP;
+$PX_TO_VW_SP: calc(100vw / $WIDTH_SP);
 
 $WIDTH_PC: 1500px;
 //vw算出用
-$PX_TO_VW_PC: 100vw / $WIDTH_PC;
+$PX_TO_VW_PC: calc(100vw / $WIDTH_PC);
 
 @mixin blockAnchor {
   a {
