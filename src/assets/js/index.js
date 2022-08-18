@@ -1,8 +1,11 @@
 // import { IS_DEBUG } from './_constants';
 
-import App from "./_App";
 // import TypeSquareAdapter from "./_TypeSquareAdapter";
-const { $, EventEmitter } = window;
+
+import EventEmitter from "eventemitter3";
+import App from "./_App";
+
+const { $ } = window;
 
 // const promiseWindowLoad = new Promise((resolve) => {
 //   $(window).on('load', () => resolve());
