@@ -162,11 +162,15 @@ const rollup_task = () => {
             input: file.path,
             plugins: [
               typescript(),
-              commonjs(),
+              commonjs({
+                transformMixedEsModules: true,
+              }),
               injectProcessEnv({
                 NODE_ENV: IS_DEBUG ? "development" : "production",
               }),
-              nodeResolve(),
+              nodeResolve({
+                browser: true,
+              }),
               !IS_DEBUG && terser(),
             ],
           });

@@ -1,5 +1,6 @@
 import animate from "animate";
 import Stats from "stats.js";
+import axios from "axios";
 import { FPS, IS_DEBUG } from "./_constants";
 
 const { $ } = window;
