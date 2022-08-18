@@ -9,27 +9,24 @@ const autoprefixer = require("gulp-autoprefixer");
 // "Pug" was renamed from "Jade".
 // see https://github.com/pugjs/pug
 const pug = require("gulp-pug");
-const rename = require("gulp-rename");
 const plumber = require("gulp-plumber");
 const notify = require("gulp-notify");
-const uglify = require("gulp-uglify");
-const uglifySaveLicense = require("uglify-save-license");
-const gulpif = require("gulp-if");
 const beautify = require("gulp-jsbeautifier");
 
-const browserify = require("browserify");
-const envify = require("envify/custom");
-const babelify = require("babelify");
 const through2 = require("through2");
-const tsify = require("tsify");
+
+const { rollup } = require("rollup");
+const typescript = require("@rollup/plugin-typescript");
+const commonjs = require("@rollup/plugin-commonjs");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
+const { terser } = require("rollup-plugin-terser");
+const injectProcessEnv = require("rollup-plugin-inject-process-env");
 
 const browserSync = require("browser-sync");
 const del = require("del");
 const path = require("path");
 
-const findBabelConfig = require("find-babel-config");
-
-const babelConfig = findBabelConfig.sync(__dirname);
+const package = require("./package.json");
 
 const IS_HTTPS = false;
 const IS_DEBUG = true;
@@ -141,22 +138,13 @@ const pug_task = () =>
     .pipe(gulp.dest(paths.html));
 exports.pug = pug_task;
 
-function babelifyTaskInternal(full) {
-  const source = full
-    ? [
-        `${paths.src_js}**/*.js`,
-        `!${paths.src_js}**/_*.js`,
-        `${paths.src_js}**/*.ts`,
-        `!${paths.src_js}**/_*.ts`,
-      ]
-    : [
-        `${paths.src_js}**/*.js`,
-        `!${paths.src_js}**/_*.js`,
-        `!${paths.src_js}**/bundle.js`,
-        `${paths.src_js}**/*.ts`,
-        `!${paths.src_js}**/_*.ts`,
-        `!${paths.src_js}**/bundle.ts`,
-      ];
+const rollup_task = () => {
+  const source = [
+    `${paths.src_js}**/*.js`,
+    `!${paths.src_js}**/_*.js`,
+    `${paths.src_js}**/*.ts`,
+    `!${paths.src_js}**/_*.ts`,
+  ];
   return gulp
     .src(source)
     .pipe(
@@ -165,66 +153,42 @@ function babelifyTaskInternal(full) {
       })
     )
     .pipe(
-      through2.obj((file, encode, callback) =>
-        browserify({
-          entries: file.path,
-          // debug:true,
-          basedir: paths.src_js,
-          extensions: [".ts", ".js"],
-        })
-          .plugin(tsify, { target: "es6" })
-          .transform(babelify, {
-            // jestで参照するためにオプションを`.babelrc`へ移動。
-            ...babelConfig.config,
-            // babelify独自オプションなので `.babelrc`には書けない。
-            global: true,
-            // sourceMaps:"file",
-          })
-          .transform(
-            envify({
-              NODE_ENV: IS_DEBUG ? "development" : "production",
-            })
-          )
-          .bundle((err, res) => {
-            if (err) {
-              return callback(err);
-            }
-            // eslint-disable-next-line no-param-reassign
-            file.contents = res;
-            return callback(null, file);
-          })
-          .on("error", (err) => {
-            console.log(`Error : ${err.message}`);
-          })
-      )
-    )
-    .pipe(
-      gulpif(
-        !IS_DEBUG,
-        uglify({
-          output: {
-            comments: uglifySaveLicense,
-          },
-        })
-      )
-    )
-    .pipe(
-      rename({
-        extname: ".js",
+      through2.obj((file, encode, callback) => {
+        (async () => {
+          const inputRelativePath = path.relative(paths.src_js, file.path);
+          const outputRelativePath = inputRelativePath.replace(/\.ts+$/, ".js");
+          console.time(`compile: ${inputRelativePath}`);
+          const bundle = await rollup({
+            input: file.path,
+            plugins: [
+              typescript(),
+              commonjs(),
+              injectProcessEnv({
+                NODE_ENV: IS_DEBUG ? "development" : "production",
+              }),
+              nodeResolve(),
+              !IS_DEBUG && terser(),
+            ],
+          });
+          await bundle.write({
+            file: `${paths.dist_js}${outputRelativePath}`,
+            name: package.name,
+            sourcemap: true,
+            format: "umd",
+          });
+          console.timeEnd(`compile: ${inputRelativePath}`);
+        })()
+          .then(() => callback())
+          .catch(callback);
       })
-    )
-    .pipe(gulp.dest(paths.dist_js));
-}
-
-const babelify_task = () => babelifyTaskInternal.call(null, true);
-exports.babelify = babelify_task;
-const babelify_for_watch_task = () => babelifyTaskInternal.call(null, false);
-exports.babelify_for_watch = babelify_for_watch_task;
+    );
+};
+exports.rollup = rollup_task;
 
 const build_task = gulp.series(
   clean_task,
   gulp.parallel(copy_image_task, copy_lib_task),
-  gulp.parallel(scss_task, pug_task, babelify_task)
+  gulp.parallel(scss_task, pug_task, rollup_task)
 );
 exports.build = build_task;
 
@@ -238,7 +202,7 @@ const watch_task = () => {
   gulp.watch(
     [`${paths.src_js}**/*.js`, `${paths.src_js}**/*.ts`],
     watchOptions,
-    babelify_for_watch_task
+    rollup_task
   );
 
   browserSync({

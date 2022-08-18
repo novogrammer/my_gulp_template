@@ -1,6 +1,8 @@
+import animate from "animate";
+import Stats from "stats.js";
 import { FPS, IS_DEBUG } from "./_constants";
 
-const { Stats, animate, $ } = window;
+const { $ } = window;
 
 export default class App {
   constructor(emitter) {
