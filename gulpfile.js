@@ -183,6 +183,7 @@ const rollup_task = () => {
       })
     );
 };
+exports.rollup = rollup_task;
 
 const build_task = gulp.series(
   clean_task,
