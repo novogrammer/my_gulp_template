@@ -23,6 +23,13 @@ const babelify = require("babelify");
 const through2 = require("through2");
 const tsify = require("tsify");
 
+const { rollup } = require("rollup");
+const typescript = require("@rollup/plugin-typescript");
+const commonjs = require("@rollup/plugin-commonjs");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
+const { terser } = require("rollup-plugin-terser");
+const injectProcessEnv = require("rollup-plugin-inject-process-env");
+
 const browserSync = require("browser-sync");
 const del = require("del");
 const path = require("path");
@@ -30,6 +37,7 @@ const path = require("path");
 const findBabelConfig = require("find-babel-config");
 
 const babelConfig = findBabelConfig.sync(__dirname);
+const package = require("./package.json");
 
 const IS_HTTPS = false;
 const IS_DEBUG = true;
@@ -215,6 +223,51 @@ function babelifyTaskInternal(full) {
     )
     .pipe(gulp.dest(paths.dist_js));
 }
+const rollup_task = () => {
+  const source = [
+    `${paths.src_js}**/*.js`,
+    `!${paths.src_js}**/_*.js`,
+    `${paths.src_js}**/*.ts`,
+    `!${paths.src_js}**/_*.ts`,
+  ];
+  return gulp
+    .src(source)
+    .pipe(
+      plumber({
+        errorHandler: notify.onError("Error: <%= error.message %>"),
+      })
+    )
+    .pipe(
+      through2.obj((file, encode, callback) => {
+        (async () => {
+          const inputRelativePath = path.relative(paths.src_js, file.path);
+          const outputRelativePath = inputRelativePath.replace(/\.ts+$/, ".js");
+          console.time(`compile: ${inputRelativePath}`);
+          const bundle = await rollup({
+            input: file.path,
+            plugins: [
+              typescript(),
+              commonjs(),
+              injectProcessEnv({
+                NODE_ENV: IS_DEBUG ? "development" : "production",
+              }),
+              nodeResolve(),
+              IS_DEBUG && terser(),
+            ],
+          });
+          await bundle.write({
+            file: `${paths.dist_js}${outputRelativePath}`,
+            name: package.name,
+            sourcemap: true,
+            format: "umd",
+          });
+          console.timeEnd(`compile: ${inputRelativePath}`);
+        })()
+          .then(() => callback())
+          .catch(callback);
+      })
+    );
+};
 
 const babelify_task = () => babelifyTaskInternal.call(null, true);
 exports.babelify = babelify_task;
@@ -224,7 +277,7 @@ exports.babelify_for_watch = babelify_for_watch_task;
 const build_task = gulp.series(
   clean_task,
   gulp.parallel(copy_image_task, copy_lib_task),
-  gulp.parallel(scss_task, pug_task, babelify_task)
+  gulp.parallel(scss_task, pug_task, rollup_task)
 );
 exports.build = build_task;
 
@@ -238,7 +291,7 @@ const watch_task = () => {
   gulp.watch(
     [`${paths.src_js}**/*.js`, `${paths.src_js}**/*.ts`],
     watchOptions,
-    babelify_for_watch_task
+    rollup_task
   );
 
   browserSync({
