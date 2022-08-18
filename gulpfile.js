@@ -167,7 +167,7 @@ const rollup_task = () => {
                 NODE_ENV: IS_DEBUG ? "development" : "production",
               }),
               nodeResolve(),
-              IS_DEBUG && terser(),
+              !IS_DEBUG && terser(),
             ],
           });
           await bundle.write({
