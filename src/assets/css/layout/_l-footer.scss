@@ -1,4 +1,4 @@
-@import "foundation/base";
+@use "../global" as *;
 
 .l-footer {
   @include mqpc() {

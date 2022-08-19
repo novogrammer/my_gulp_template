@@ -1,4 +1,4 @@
-@import "foundation/base";
+@use "../../../global" as *;
 
 .p-dummy-background-images {
   @include mqpc() {

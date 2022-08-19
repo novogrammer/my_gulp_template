@@ -1,4 +1,4 @@
-@import "foundation/base";
+@use "../../../global" as *;
 
 //BEMの場合はこんな感じ
 .p-dummy-section {

@@ -1,4 +1,4 @@
-@import "foundation/base";
+@use "../../global" as *;
 
 .c-header-logo {
   position: fixed;

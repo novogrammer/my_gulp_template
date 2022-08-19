@@ -1,6 +1,6 @@
 //prefixは"u-"
 
-@import "foundation/base";
+@use "../../global" as *;
 
 .u-pc-block {
   display: none;
