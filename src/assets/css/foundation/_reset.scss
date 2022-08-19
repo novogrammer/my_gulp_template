@@ -1,5 +1,6 @@
-@charset "utf-8";
-@import "./ress";
+@use "../global" as *;
+
+@use "./ress";
 
 body {
   text-size-adjust: 100%;

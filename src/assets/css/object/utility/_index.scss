@@ -1,7 +1,6 @@
 //prefixは"u-"
 
-@charset "utf-8";
-@import "foundation/base";
+@use "../../global" as *;
 
 .u-pc-block {
   display: none;

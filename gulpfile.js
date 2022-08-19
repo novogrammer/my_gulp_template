@@ -3,7 +3,7 @@
 
 const gulp = require("gulp");
 const gulpFlatmap = require("gulp-flatmap");
-const sass = require("gulp-dart-sass");
+const sass = require("gulp-sass")(require("sass"));
 const assetFunctions = require("@localnerve/sass-asset-functions");
 const autoprefixer = require("gulp-autoprefixer");
 // "Pug" was renamed from "Jade".
