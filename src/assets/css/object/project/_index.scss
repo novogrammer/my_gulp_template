@@ -4,4 +4,4 @@
 //サブディレクトリを作り、prefixとして追加する
 //例えば"/object/project/dummy"のprefixは"p-dummy-"
 
-@import "./dummy/index";
+@use "./dummy";

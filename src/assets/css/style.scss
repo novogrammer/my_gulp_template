@@ -2,6 +2,6 @@
 //各scssファイルはblock単位で分割する。
 //projectはサブディレクトリを推奨、
 //projectの共通パーツはcomponentへ
-@import "./foundation/index";
-@import "./layout/index";
-@import "./object/index";
+@use "./foundation";
+@use "./layout";
+@use "./object";
