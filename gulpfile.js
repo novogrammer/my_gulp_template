@@ -21,6 +21,7 @@ const commonjs = require("@rollup/plugin-commonjs");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const { terser } = require("rollup-plugin-terser");
 const injectProcessEnv = require("rollup-plugin-inject-process-env");
+const json = require("@rollup/plugin-json");
 
 const browserSync = require("browser-sync");
 const del = require("del");
@@ -161,6 +162,7 @@ const rollup_task = () => {
           const bundle = await rollup({
             input: file.path,
             plugins: [
+              json(),
               typescript(),
               commonjs({
                 transformMixedEsModules: true,
