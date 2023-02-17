@@ -1,33 +1,43 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable camelcase */
 
-const gulp = require("gulp");
-const gulpFlatmap = require("gulp-flatmap");
-const sass = require("gulp-sass")(require("sass"));
-const assetFunctions = require("@localnerve/sass-asset-functions");
-const autoprefixer = require("gulp-autoprefixer");
+import gulp from "gulp";
+import gulpFlatmap from "gulp-flatmap";
+import gulpSass from "gulp-sass";
+import dartSass from "sass";
+
+import assetFunctions from "@localnerve/sass-asset-functions";
+
+import autoprefixer from "gulp-autoprefixer";
+
 // "Pug" was renamed from "Jade".
 // see https://github.com/pugjs/pug
-const pug = require("gulp-pug");
-const plumber = require("gulp-plumber");
-const notify = require("gulp-notify");
-const beautify = require("gulp-jsbeautifier");
+import pug from "gulp-pug";
 
-const through2 = require("through2");
+import plumber from "gulp-plumber";
 
-const { rollup } = require("rollup");
-const typescript = require("@rollup/plugin-typescript");
-const commonjs = require("@rollup/plugin-commonjs");
-const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const { terser } = require("rollup-plugin-terser");
-const injectProcessEnv = require("rollup-plugin-inject-process-env");
-const json = require("@rollup/plugin-json");
+import notify from "gulp-notify";
+import beautify from "gulp-jsbeautifier";
 
-const browserSync = require("browser-sync");
-const del = require("del");
-const path = require("path");
+import through2 from "through2";
 
-const package = require("./package.json");
+import { rollup } from "rollup";
+
+import typescript from "@rollup/plugin-typescript";
+import commonjs from "@rollup/plugin-commonjs";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+
+import { terser } from "rollup-plugin-terser";
+
+import injectProcessEnv from "rollup-plugin-inject-process-env";
+import json from "@rollup/plugin-json";
+import browserSync from "browser-sync";
+import del from "del";
+import path from "path";
+
+import packageJson from "./package.json" assert { type: "json" };
+
+const sass = gulpSass(dartSass);
 
 const IS_HTTPS = false;
 const IS_DEBUG = true;
@@ -49,19 +59,19 @@ const paths = {
 };
 
 const clean_task = () => del([`${paths.dist}*`]);
-exports.clean = clean_task;
+export { clean_task as clean };
 
 const copy_image_task = () =>
   gulp
     .src([`${paths.src_image}**`], { base: paths.src_image })
     .pipe(gulp.dest(paths.dist_image));
-exports.copy_image = copy_image_task;
+export { copy_image_task as copy_image };
 
 const copy_lib_task = () =>
   gulp
     .src([`${paths.src_lib}**`], { base: paths.src_lib })
     .pipe(gulp.dest(paths.dist_lib));
-exports.copy_lib = copy_lib_task;
+export { copy_lib_task as copy_lib };
 
 const scss_task = () => {
   const pathCssToImage = path.relative(paths.css, paths.dist_image);
@@ -100,7 +110,7 @@ const scss_task = () => {
     )
     .pipe(gulp.dest(paths.css));
 };
-exports.scss = scss_task;
+export { scss_task as scss };
 
 const pug_task = () =>
   gulp
@@ -137,7 +147,7 @@ const pug_task = () =>
       )
     )
     .pipe(gulp.dest(paths.html));
-exports.pug = pug_task;
+export { pug_task as pug };
 
 const rollup_task = () => {
   const source = [
@@ -178,7 +188,7 @@ const rollup_task = () => {
           });
           await bundle.write({
             file: `${paths.dist_js}${outputRelativePath}`,
-            name: package.name,
+            name: packageJson.name,
             sourcemap: true,
             format: "umd",
           });
@@ -189,14 +199,14 @@ const rollup_task = () => {
       })
     );
 };
-exports.rollup = rollup_task;
+export { rollup_task as rollup };
 
 const build_task = gulp.series(
   clean_task,
   gulp.parallel(copy_image_task, copy_lib_task),
   gulp.parallel(scss_task, pug_task, rollup_task)
 );
-exports.build = build_task;
+export { build_task as build };
 
 const watch_task = () => {
   const watchOptions = {
@@ -227,6 +237,6 @@ const watch_task = () => {
     watch: true,
   });
 };
-exports.watch = watch_task;
+export { watch_task as watch };
 
-exports.default = gulp.series(build_task, watch_task);
+export default gulp.series(build_task, watch_task);
