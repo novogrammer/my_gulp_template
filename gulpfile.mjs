@@ -5,32 +5,25 @@ import gulp from "gulp";
 import gulpFlatmap from "gulp-flatmap";
 import gulpSass from "gulp-sass";
 import dartSass from "sass";
-
 import assetFunctions from "@localnerve/sass-asset-functions";
-
 import autoprefixer from "gulp-autoprefixer";
-
 // "Pug" was renamed from "Jade".
 // see https://github.com/pugjs/pug
 import pug from "gulp-pug";
-
 import plumber from "gulp-plumber";
-
 import notify from "gulp-notify";
 import beautify from "gulp-jsbeautifier";
 
 import through2 from "through2";
 
 import { rollup } from "rollup";
-
 import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
-
 import { terser } from "rollup-plugin-terser";
-
 import injectProcessEnv from "rollup-plugin-inject-process-env";
 import json from "@rollup/plugin-json";
+
 import browserSync from "browser-sync";
 import del from "del";
 import path from "path";
