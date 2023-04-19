@@ -8,6 +8,43 @@ html(lang="ja")
     - var faviconUrl=""
     - var ogpUrl=""
     - var siteName=""
+    - var mediaQueryPc="(min-width:768px)"
+  block functions
+    -
+      function zeroPadding(num, qty) {
+        return `${"0".repeat(qty)}${num}`.slice(qty * -1);
+      }
+      function separateSrc(src){
+        const matchExt=/\.([^.]+)$/;
+        const extMatched=src.match(matchExt);
+        const baseName=src.replace(matchExt,"");
+        if(!extMatched){
+          throw new Error("src requires ext");
+        }
+        const ext=extMatched[1];
+        return {
+          baseName,
+          ext,
+        };
+      }
+  block mixins
+    mixin picture({src,alt="",className="",media=false,loading="lazy",webp=false})
+      -
+        const {baseName,ext}=separateSrc(src);
+        if(webp && ext!="jpg" && ext!="png"){
+          throw new Error(`(webp && ext!="jpg" && ext!="png") is invalid`);
+        }
+      picture
+        if media
+          if webp
+            source(type="image/webp" media=mediaQueryPc srcset=baseName+"--pc.webp")
+            source(type="image/webp" srcset=baseName+"--sp.webp")
+          source(media=mediaQueryPc srcset=baseName+"--pc."+ext)
+          img(src=baseName+"--sp."+ext alt=alt class=className loading=loading)
+        else
+          if webp
+            source(type="image/webp" srcset=baseName+".webp")
+          img(src=baseName+ext alt=alt class=className loading=loading)
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE-edge")

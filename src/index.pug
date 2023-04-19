@@ -13,9 +13,33 @@ block main
     .p-dummy-background-images__image.p-dummy-background-images__image--image02 イメージ02
     .p-dummy-background-images__image.p-dummy-background-images__image--image03 イメージ03
   .p-dummy-images
-    img.p-dummy-images__image.p-dummy-images__image--image01(src=relRoot+"assets/img/dummy/dummy-images__image--image01.png" alt="イメージ01")
-    img.p-dummy-images__image.p-dummy-images__image--image02(src=relRoot+"assets/img/dummy/dummy-images__image--image02.png" alt="イメージ02")
-    img.p-dummy-images__image.p-dummy-images__image--image03(src=relRoot+"assets/img/dummy/dummy-images__image--image03.png" alt="イメージ03")
+    +picture({
+      src:relRoot+"assets/img/dummy/dummy-images__image--image01.png",
+      alt:"イメージ01",
+      className:[
+        "p-dummy-images__image",
+        "p-dummy-images__image--image01",
+      ].join(" "),
+      webp:true,
+    })
+    +picture({
+      src:relRoot+"assets/img/dummy/dummy-images__image--image02.png",
+      alt:"イメージ02",
+      className:[
+        "p-dummy-images__image",
+        "p-dummy-images__image--image02",
+      ].join(" "),
+      webp:true,
+    })
+    +picture({
+      src:relRoot+"assets/img/dummy/dummy-images__image--image03.png",
+      alt:"イメージ03",
+      className:[
+        "p-dummy-images__image",
+        "p-dummy-images__image--image03",
+      ].join(" "),
+      webp:true,
+    })
   section.p-dummy-section
     h1.p-dummy-section__title ダミータイトル#[br.u-sp-inline]ダミータイトル
     p.p-dummy-section__text
