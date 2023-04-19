@@ -14,7 +14,12 @@ import plumber from "gulp-plumber";
 import notify from "gulp-notify";
 import beautify from "gulp-jsbeautifier";
 
+import gulpImagemin from "gulp-imagemin";
+import imageminWebp from "imagemin-webp";
+
 import through2 from "through2";
+
+import gulpRename from "gulp-rename";
 
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
@@ -45,8 +50,10 @@ const paths = {
   html: "dist/",
   src_js: "src/assets/js/",
   dist_js: "dist/assets/js/",
-  dist_image: "dist/assets/img/",
   src_image: "src/assets/img/",
+  dist_image: "dist/assets/img/",
+  src_webp: "src/assets/img/",
+  dist_webp: "dist/assets/img/",
   src_lib: "src/assets/lib/",
   dist_lib: "dist/assets/lib/",
 };
@@ -60,6 +67,52 @@ const copy_image_task = () =>
     .pipe(gulp.dest(paths.dist_image));
 export { copy_image_task as copy_image };
 
+const imagemin_webp_jpg_task = () =>
+  gulp
+    .src([`${paths.src_webp}**/*.jpg`], {
+      base: paths.src_webp,
+    })
+    .pipe(
+      gulpImagemin([
+        imageminWebp({
+          lossless: false,
+        }),
+      ])
+    )
+    .pipe(
+      gulpRename((parsedPath) => {
+        parsedPath.extname = ".webp";
+      })
+    )
+    .pipe(gulp.dest(paths.dist_webp));
+export { imagemin_webp_jpg_task as imagemin_jpg_webp };
+
+const imagemin_webp_png_task = () =>
+  gulp
+    .src([`${paths.src_webp}**/*.png`], {
+      base: paths.src_webp,
+    })
+    .pipe(
+      gulpImagemin([
+        imageminWebp({
+          lossless: true,
+        }),
+      ])
+    )
+    .pipe(
+      gulpRename((parsedPath) => {
+        parsedPath.extname = ".webp";
+      })
+    )
+    .pipe(gulp.dest(paths.dist_webp));
+export { imagemin_webp_png_task as imagemin_webp_png };
+
+const imagemin_webp_task = gulp.series(
+  imagemin_webp_jpg_task,
+  imagemin_webp_png_task
+);
+
+export { imagemin_webp_task as imagemin_webp };
 const copy_lib_task = () =>
   gulp
     .src([`${paths.src_lib}**`], { base: paths.src_lib })
@@ -196,7 +249,7 @@ export { rollup_task as rollup };
 
 const build_task = gulp.series(
   clean_task,
-  gulp.parallel(copy_image_task, copy_lib_task),
+  gulp.parallel(copy_image_task, imagemin_webp_task, copy_lib_task),
   gulp.parallel(scss_task, pug_task, rollup_task)
 );
 export { build_task as build };
@@ -206,6 +259,7 @@ const watch_task = () => {
     useFsEvents: false,
   };
   gulp.watch([`${paths.src_image}**/*`], watchOptions, copy_image_task);
+  gulp.watch([`${paths.src_webp}**/*`], watchOptions, imagemin_webp_task);
   gulp.watch([`${paths.scss}**/*.scss`], watchOptions, scss_task);
   gulp.watch([`${paths.pug}**/*.pug`], watchOptions, pug_task);
   gulp.watch(
