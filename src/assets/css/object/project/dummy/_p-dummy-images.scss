@@ -6,7 +6,10 @@
   }
   &__image {
     display: block;
+    width: 192px * $PX_TO_VW_SP;
+    height: auto;
     @include mqpc() {
+      width: 192px;
     }
     &--image01 {
       @include mqpc() {
