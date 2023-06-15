@@ -1,4 +1,4 @@
-FROM node:10.24.1-stretch
+FROM node:18.16.0-bookworm
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
