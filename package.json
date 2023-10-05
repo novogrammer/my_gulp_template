@@ -34,7 +34,7 @@
     "eslint-plugin-import": "^2.24.2",
     "glob-parent": "^6.0.2",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-flatmap": "^1.0.2",
     "gulp-imagemin": "^8.0.0",
     "gulp-jsbeautifier": "^3.0.0",
