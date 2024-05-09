@@ -13,7 +13,7 @@ export default class App {
 
   setupStats() {
     this.stats = new Stats();
-    this.stats.dom.attributes.id = "Stats";
+    this.stats.dom.id = "Stats";
     document.body.append(this.stats.dom);
     this.stats.dom.style.left = "auto";
     this.stats.dom.style.right = "0";
