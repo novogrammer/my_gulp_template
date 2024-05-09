@@ -2,8 +2,6 @@ import animate from "animate";
 import Stats from "stats.js";
 import { FPS, IS_DEBUG } from "./_constants";
 
-const { $ } = window;
-
 export default class App {
   constructor(emitter) {
     this.emitter = emitter;
@@ -15,11 +13,13 @@ export default class App {
 
   setupStats() {
     this.stats = new Stats();
-    const $dom = $(this.stats.dom);
-    $dom.attr("id", "Stats");
-    $("body").append($dom);
-    $("#Stats").css({ left: "auto", right: 0 });
-    $("#Stats").toggle(IS_DEBUG);
+    this.stats.dom.attributes.id = "Stats";
+    document.body.append(this.stats.dom);
+    this.stats.dom.style.left = "auto";
+    this.stats.dom.style.right = "0";
+    if (!IS_DEBUG) {
+      this.stats.dom.style.display = "none";
+    }
   }
 
   setupEvents() {
@@ -61,7 +61,7 @@ export default class App {
 
   checkScroll() {
     const { emitter } = this;
-    const scrollTop = $(window).scrollTop();
+    const scrollTop = window.scrollY;
     if (
       this.previousScrollTop != null &&
       this.previousScrollTop === scrollTop
