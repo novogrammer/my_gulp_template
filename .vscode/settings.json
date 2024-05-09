@@ -1,7 +1,5 @@
 {
-  "beautify.ignore": [
-    "**/*"
-  ],
+  "beautify.ignore": ["**/*"],
   "css.validate": false,
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
@@ -18,11 +16,8 @@
   "problems.showCurrentInStatus": true,
   "scss.validate": false,
   "stylelint.enable": true,
-  "stylelint.validate": [
-    "css",
-    "scss"
-  ],
+  "stylelint.validate": ["css", "scss"],
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
+    "source.fixAll": "explicit"
+  }
 }
