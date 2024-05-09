@@ -64,7 +64,6 @@
   "dependencies": {
     "animate": "^1.0.0",
     "eventemitter3": "^4.0.7",
-    "jquery": "^3.6.0",
     "stats.js": "^0.17.0"
   }
 }
