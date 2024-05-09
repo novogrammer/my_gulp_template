@@ -4,14 +4,15 @@
 
 import EventEmitter from "eventemitter3";
 import App from "./_App";
+import { domReady } from "./_dom_utils";
 
-const { $ } = window;
+// const { $ } = window;
 
 // const promiseWindowLoad = new Promise((resolve) => {
 //   $(window).on('load', () => resolve());
 // });
 
-$(() => {
+domReady(() => {
   const emitter = new EventEmitter();
   const promises = [];
   // promises.push(promiseWindowLoad);
