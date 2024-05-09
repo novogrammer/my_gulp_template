@@ -1,8 +1,5 @@
 import { degToRad } from "./_math_utils";
 
-const { $, jQuery } = window;
-console.log($);
-console.log(jQuery);
 
 
 function mylog(a: string) {
