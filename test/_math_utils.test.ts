@@ -30,7 +30,7 @@ describe('random', () => {
     jest.spyOn(Math, 'random').mockReturnValue(RANDOM_VALUE);
   });
   afterEach(() => {
-    Math.random.mockRestore();
+    (Math.random as any).mockRestore();
   });
   test('random() equal RANDOM_VALUE', () => {
     expect(random()).toBeCloseTo(RANDOM_VALUE, 5);

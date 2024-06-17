@@ -42,4 +42,4 @@ export declare function containRectRatio(
 
 export declare function containRect(rectOriginal: Rect, rectTarget: Rect): Rect;
 
-export declare function range(start: number, stop: number): Array<number>;
+export declare function range(start: number, stop?: number): Array<number>;
