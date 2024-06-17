@@ -10,7 +10,7 @@
     "fix": "npm-run-all --sequential fix:*",
     "start": "gulp",
     "browserslist-update-db": "npx browserslist@latest --update-db",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "author": "Yusuke Kawamoto <novogrammer@gmail.com>",
   "license": "ISC",
