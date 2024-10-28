@@ -29,6 +29,11 @@ $ npm start
 $ npm run fix
 ```
 
+## HTMLのバリデート
+
+```
+$ npm run html-validate
+```
 
 # Dockerを使う場合
 
