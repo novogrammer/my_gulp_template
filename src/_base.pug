@@ -28,7 +28,7 @@ html(lang="ja")
         };
       }
   block mixins
-    mixin picture({src,alt="",className="",media=false,loading="lazy",webp=false})
+    mixin picture({src,alt="",className="",media=false,loading="eager",webp=false})
       -
         const {baseName,ext}=separateSrc(src);
         if(webp && ext!="jpg" && ext!="png"){
