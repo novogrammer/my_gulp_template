@@ -30,10 +30,8 @@ import injectProcessEnv from "rollup-plugin-inject-process-env";
 import json from "@rollup/plugin-json";
 
 import browserSync from "browser-sync";
-import del from "del";
+import { deleteAsync } from "del";
 import path from "path";
-
-import packageJson from "./package.json" assert { type: "json" };
 
 const sass = gulpSass(dartSass);
 
@@ -58,7 +56,7 @@ const paths = {
   dist_lib: "dist/assets/lib/",
 };
 
-const clean_task = () => del([`${paths.dist}*`]);
+const clean_task = () => deleteAsync([`${paths.dist}**`]);
 export { clean_task as clean };
 
 const copy_image_task = () =>
@@ -236,7 +234,7 @@ const rollup_task = () => {
           });
           await bundle.write({
             file: `${paths.dist_js}${outputRelativePath}`,
-            name: packageJson.name,
+            name: process.env.npm_package_name,
             sourcemap: true,
             format: "umd",
           });
