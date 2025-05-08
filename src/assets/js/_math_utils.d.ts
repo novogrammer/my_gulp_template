@@ -7,7 +7,7 @@ export declare function map(
   inputMax: number,
   outputMin: number,
   outputMax: number,
-  doClamp?: boolean
+  doClamp?: boolean,
 ): number;
 
 interface Point {
@@ -26,18 +26,18 @@ export declare function getCenterOfRect(rect: Rect): Point;
 export declare function scaledRect(
   rectOriginal: Rect,
   rectTarget: Rect,
-  targetRatio: number
+  targetRatio: number,
 ): Rect;
 export declare function coverRectRatio(
   rectOriginal: Rect,
-  rectTarget: Rect
+  rectTarget: Rect,
 ): number;
 
 export declare function coverRect(rectOriginal: Rect, rectTarget: Rect): Rect;
 
 export declare function containRectRatio(
   rectOriginal: Rect,
-  rectTarget: Rect
+  rectTarget: Rect,
 ): number;
 
 export declare function containRect(rectOriginal: Rect, rectTarget: Rect): Rect;
