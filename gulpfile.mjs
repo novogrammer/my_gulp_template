@@ -4,7 +4,7 @@
 import gulp from "gulp";
 import gulpFlatmap from "gulp-flatmap";
 import gulpSass from "gulp-sass";
-import dartSass from "sass";
+import * as dartSass from "sass";
 import assetFunctions from "@localnerve/sass-asset-functions";
 import autoprefixer from "gulp-autoprefixer";
 // "Pug" was renamed from "Jade".
