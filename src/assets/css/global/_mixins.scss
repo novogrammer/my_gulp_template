@@ -1,4 +1,5 @@
 @use "./variables" as *;
+@use "sass:math";
 
 @mixin blockAnchor {
   a {
@@ -19,9 +20,9 @@
   $width: image-width($image) * $ratio;
   $height: image-height($image) * $ratio;
 
-  @if unit($width) == "px" {
-    $width: round($width);
-    $height: round($height);
+  @if math.unit($width) == "px" {
+    $width: math.round($width);
+    $height: math.round($height);
   }
 
   width: $width;
@@ -75,13 +76,15 @@
 }
 
 @mixin fontSansSerif() {
-  font-family: Helvetica, "Yu Gothic Medium", "游ゴシック Medium", YuGothic,
+  font-family:
+    Helvetica, "Yu Gothic Medium", "游ゴシック Medium", YuGothic,
     "游ゴシック体", "ヒラギノ角ゴ Pro W3", "ヒラギノ角ゴ W3",
     "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, sans-serif;
 }
 
 @mixin fontSerif() {
-  font-family: "Times New Roman", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3",
+  font-family:
+    "Times New Roman", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3",
     "Hiragino Mincho ProN", "メイリオ", Meiryo, serif;
 }
 

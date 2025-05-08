@@ -20,7 +20,7 @@ export function map(
   inputMax,
   outputMin,
   outputMax,
-  doClamp = false
+  doClamp = false,
 ) {
   let outputValue =
     ((inputValue - inputMin) / (inputMax - inputMin)) *
