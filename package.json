@@ -34,7 +34,7 @@
     "gulp": "^5.0.0",
     "gulp-autoprefixer": "^9.0.0",
     "gulp-flatmap": "^1.0.2",
-    "gulp-imagemin": "^8.0.0",
+    "gulp-imagemin": "^9.1.0",
     "gulp-jsbeautifier": "^3.0.0",
     "gulp-notify": "^5.0.0",
     "gulp-plumber": "^1.2.1",
