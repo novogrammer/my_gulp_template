@@ -19,7 +19,12 @@ function runAsync(cmd: string, opts: { cwd: string }) {
   });
 }
 
-describe('gulp clean', () => {
+const isTemplate = process.env.npm_package_name === 'my_gulp_template';
+
+// describe を置き換え、package名がmy_gulp_templateの時だけ実行する
+const describeIf = isTemplate ? describe : describe.skip;
+
+describeIf('gulp clean', () => {
   test("ファイルが消えることの確認", async () => {
     await fs.mkdir(DIST, { recursive: true });
     await fs.writeFile(path.join(DIST, 'dummy.txt'), 'dummy');
@@ -28,8 +33,7 @@ describe('gulp clean', () => {
   });
 });
 
-// package名がmy_gulp_templateの時だけ実行する
-describe('gulp build', () => {
+describeIf('gulp build', () => {
   beforeAll(async () => {
     await runAsync('npx gulp build', { cwd: ROOT });
   }, 20 * 1000);
