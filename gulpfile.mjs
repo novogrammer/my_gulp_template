@@ -63,7 +63,7 @@ export { clean_task as clean };
 
 const copy_image_task = () =>
   gulp
-    .src([`${paths.src_image}**`], { base: paths.src_image })
+    .src([`${paths.src_image}**`], { base: paths.src_image, encoding: false })
     .pipe(gulp.dest(paths.dist_image));
 export { copy_image_task as copy_image };
 
@@ -71,6 +71,7 @@ const imagemin_webp_jpg_task = () =>
   gulp
     .src([`${paths.src_webp}**/*.jpg`], {
       base: paths.src_webp,
+      encoding: false,
     })
     .pipe(
       gulpImagemin([
@@ -91,6 +92,7 @@ const imagemin_webp_png_task = () =>
   gulp
     .src([`${paths.src_webp}**/*.png`], {
       base: paths.src_webp,
+      encoding: false,
     })
     .pipe(
       gulpImagemin([
@@ -115,7 +117,7 @@ const imagemin_webp_task = gulp.series(
 export { imagemin_webp_task as imagemin_webp };
 const copy_lib_task = () =>
   gulp
-    .src([`${paths.src_lib}**`], { base: paths.src_lib })
+    .src([`${paths.src_lib}**`], { base: paths.src_lib, encoding: false })
     .pipe(gulp.dest(paths.dist_lib));
 export { copy_lib_task as copy_lib };
 
