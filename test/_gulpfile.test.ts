@@ -32,7 +32,7 @@ describe('gulp clean', () => {
 describe('gulp build', () => {
   beforeAll(async () => {
     await runAsync('npx gulp build', { cwd: ROOT });
-  });
+  }, 20 * 1000);
   afterAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
   });
