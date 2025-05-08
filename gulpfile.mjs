@@ -76,12 +76,12 @@ const imagemin_webp_jpg_task = () =>
         imageminWebp({
           lossless: false,
         }),
-      ])
+      ]),
     )
     .pipe(
       gulpRename((parsedPath) => {
         parsedPath.extname = ".webp";
-      })
+      }),
     )
     .pipe(gulp.dest(paths.dist_webp));
 export { imagemin_webp_jpg_task as imagemin_jpg_webp };
@@ -97,19 +97,19 @@ const imagemin_webp_png_task = () =>
         imageminWebp({
           lossless: true,
         }),
-      ])
+      ]),
     )
     .pipe(
       gulpRename((parsedPath) => {
         parsedPath.extname = ".webp";
-      })
+      }),
     )
     .pipe(gulp.dest(paths.dist_webp));
 export { imagemin_webp_png_task as imagemin_webp_png };
 
 const imagemin_webp_task = gulp.series(
   imagemin_webp_jpg_task,
-  imagemin_webp_png_task
+  imagemin_webp_png_task,
 );
 
 export { imagemin_webp_task as imagemin_webp };
@@ -127,7 +127,7 @@ const scss_task = () => {
     .pipe(
       plumber({
         errorHandler: notify.onError("Error: <%= error.message %>"),
-      })
+      }),
     )
     .pipe(
       gulpFlatmap((stream, file) => {
@@ -145,14 +145,14 @@ const scss_task = () => {
                 done(cacheBusterString);
               },
             }),
-          })
+          }),
         );
-      })
+      }),
     )
     .pipe(
       autoprefixer({
         cascade: false,
-      })
+      }),
     )
     .pipe(gulp.dest(paths.css));
 };
@@ -164,7 +164,7 @@ const pug_task = () =>
     .pipe(
       plumber({
         errorHandler: notify.onError("Error: <%= error.message %>"),
-      })
+      }),
     )
     .pipe(
       gulpFlatmap((stream, file) =>
@@ -176,21 +176,21 @@ const pug_task = () =>
                 relRoot: path.join(
                   ".",
                   path.relative(path.dirname(file.path), paths.pug),
-                  "/"
+                  "/",
                 ),
               },
               basedir: paths.pug,
               // debug:true,
               // compileDebug:true,
-            })
+            }),
           )
           .pipe(
             beautify({
               // indent_inner_html:true,
               indent_size: 2,
-            })
-          )
-      )
+            }),
+          ),
+      ),
     )
     .pipe(gulp.dest(paths.html));
 export { pug_task as pug };
@@ -207,7 +207,7 @@ const rollup_task = () => {
     .pipe(
       plumber({
         errorHandler: notify.onError("Error: <%= error.message %>"),
-      })
+      }),
     )
     .pipe(
       through2.obj((file, encode, callback) => {
@@ -242,7 +242,7 @@ const rollup_task = () => {
         })()
           .then(() => callback())
           .catch(callback);
-      })
+      }),
     );
 };
 export { rollup_task as rollup };
@@ -250,7 +250,7 @@ export { rollup_task as rollup };
 const build_task = gulp.series(
   clean_task,
   gulp.parallel(copy_image_task, imagemin_webp_task, copy_lib_task),
-  gulp.parallel(scss_task, pug_task, rollup_task)
+  gulp.parallel(scss_task, pug_task, rollup_task),
 );
 export { build_task as build };
 
@@ -265,7 +265,7 @@ const watch_task = () => {
   gulp.watch(
     [`${paths.src_js}**/*.js`, `${paths.src_js}**/*.ts`],
     watchOptions,
-    rollup_task
+    rollup_task,
   );
 
   browserSync({
