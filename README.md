@@ -3,6 +3,8 @@ my_gulp_template
 
 # 自分用のgulpひな形
 
+[![CI](https://github.com/novogrammer/my_gulp_template/actions/workflows/ci.yaml/badge.svg)](https://github.com/novogrammer/my_gulp_template/actions/workflows/ci.yaml)
+
 ご自由にどうぞ。
 
 ## 前提
