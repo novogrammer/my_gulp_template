@@ -14,42 +14,42 @@ my_gulp_template
 
 ## 導入
 ```bash
-$ npm install
+npm install
 ```
 
 ## 実行
 ```bash
-$ npx gulp
+npx gulp
 ```
 または
 ```bash
-$ npm start
+npm start
 ```
 
 ## コーディングスタイルを揃える
 ```bash
-$ npm run fix
+npm run fix
 ```
 
 ## HTMLのバリデート
 
 ```bash
-$ npm run html-validate
+npm run html-validate
 ```
 
 # Dockerを使う場合
 
 ## Dockerイメージの作成
 ```bash
-$ docker compose build
+docker compose build
 ```
 ## Dockerコンテナの開始
 npm run startを呼びます
 ```bash
-$ docker compose up -d
+docker compose up -d
 ```
 ## Dockerコンテナの終了
 ```bash
-$ docker compose down
+docker compose down
 ```
 
