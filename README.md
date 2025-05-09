@@ -41,15 +41,15 @@ $ npm run html-validate
 
 ## Dockerイメージの作成
 ```bash
-$ docker-compose build
+$ docker compose build
 ```
 ## Dockerコンテナの開始
 npm run startを呼びます
 ```bash
-$ docker-compose up -d
+$ docker compose up -d
 ```
 ## Dockerコンテナの終了
 ```bash
-$ docker-compose down
+$ docker compose down
 ```
 
