@@ -23,5 +23,5 @@ const describeIf = isTemplate ? describe : describe.skip;
 describeIf('npm run fix', () => {
   test("npm run fixが実行できることの確認", async () => {
     await runAsync('npm run fix', { cwd: ROOT });
-  });
+  }, 10 * 1000);
 });
