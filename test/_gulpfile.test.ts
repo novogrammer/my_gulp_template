@@ -148,5 +148,10 @@ describeIf('gulp build', () => {
       expect(css).toMatch(/@charset "UTF-8";/);
     }
   });
+  describe("html-validate", () => {
+    test("html-validateが実行できることの確認", async () => {
+      await runAsync('npm run html-validate', { cwd: ROOT });
+    })
+  })
 
 });
