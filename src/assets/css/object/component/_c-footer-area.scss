@@ -1,4 +1,4 @@
-@use "../../global" as *;
+@use "../../global" as global;
 
 .c-footer-area {
   box-sizing: border-box;
@@ -6,12 +6,12 @@
   padding-top: 50px;
   padding-bottom: 50px;
   background: #ccc;
-  @include mq-pc() {
+  @include global.mq-pc() {
   }
   &__copyright {
     font-size: 14px;
     text-align: center;
-    @include mq-pc() {
+    @include global.mq-pc() {
     }
   }
 }

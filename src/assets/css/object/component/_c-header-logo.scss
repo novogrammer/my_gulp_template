@@ -1,4 +1,4 @@
-@use "../../global" as *;
+@use "../../global" as global;
 
 .c-header-logo {
   position: fixed;
@@ -6,14 +6,14 @@
   left: 10px;
   font-size: 30px;
   background: rgba(255, 255, 255, 0.5);
-  @include mq-pc() {
+  @include global.mq-pc() {
   }
   a {
     display: block;
     padding: 10px;
     color: #000;
     text-decoration: none;
-    @include mq-pc() {
+    @include global.mq-pc() {
     }
   }
 }

@@ -1,37 +1,37 @@
-@use "../../../global" as *;
+@use "../../../global" as global;
 
 .p-dummy-background-images {
-  @include mq-pc() {
+  @include global.mq-pc() {
     display: flex;
   }
   &__image {
-    @include mq-pc() {
+    @include global.mq-pc() {
     }
     &--image01 {
-      @include single-sprite(
+      @include global.single-sprite(
         "dummy/dummy-images__image--image01.png",
-        $px-to-vw-sp
+        global.$px-to-vw-sp
       );
-      @include mq-pc() {
-        @include single-sprite("dummy/dummy-images__image--image01.png");
+      @include global.mq-pc() {
+        @include global.single-sprite("dummy/dummy-images__image--image01.png");
       }
     }
     &--image02 {
-      @include single-sprite(
+      @include global.single-sprite(
         "dummy/dummy-images__image--image02.png",
-        $px-to-vw-sp
+        global.$px-to-vw-sp
       );
-      @include mq-pc() {
-        @include single-sprite("dummy/dummy-images__image--image02.png");
+      @include global.mq-pc() {
+        @include global.single-sprite("dummy/dummy-images__image--image02.png");
       }
     }
     &--image03 {
-      @include single-sprite(
+      @include global.single-sprite(
         "dummy/dummy-images__image--image03.png",
-        $px-to-vw-sp
+        global.$px-to-vw-sp
       );
-      @include mq-pc() {
-        @include single-sprite("dummy/dummy-images__image--image03.png");
+      @include global.mq-pc() {
+        @include global.single-sprite("dummy/dummy-images__image--image03.png");
       }
     }
   }
