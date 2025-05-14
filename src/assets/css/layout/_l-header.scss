@@ -1,6 +1,6 @@
 @use "../global" as *;
 
 .l-header {
-  @include mqpc() {
+  @include mq-pc() {
   }
 }

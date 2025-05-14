@@ -1,6 +1,6 @@
 @use "../global" as *;
 
 .l-footer {
-  @include mqpc() {
+  @include mq-pc() {
   }
 }

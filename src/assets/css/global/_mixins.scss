@@ -1,7 +1,7 @@
 @use "./variables" as *;
 @use "sass:math";
 
-@mixin blockAnchor {
+@mixin block-anchor {
   a {
     display: block;
     width: 100%;
@@ -16,7 +16,7 @@
 }
 
 // $ratioは単位なしの実数を想定しているが、[px]からの単位変換を目的とした[vw/px]なども可能にする
-@mixin imageDimension($image, $ratio: 1) {
+@mixin image-dimension($image, $ratio: 1) {
   $width: image-width($image) * $ratio;
   $height: image-height($image) * $ratio;
 
@@ -29,16 +29,16 @@
   height: $height;
 }
 
-@mixin singleSpriteWithText($image, $ratio: 1, $display: block) {
+@mixin single-sprite-with-text($image, $ratio: 1, $display: block) {
   display: $display;
   background: image-url($image) no-repeat;
   background-size: contain;
-  @include imageDimension($image, $ratio);
+  @include image-dimension($image, $ratio);
 }
 
-@mixin singleSprite($image, $ratio: 1, $display: block) {
+@mixin single-sprite($image, $ratio: 1, $display: block) {
   @include hide-text();
-  @include singleSpriteWithText($image, $ratio, $display);
+  @include single-sprite-with-text($image, $ratio, $display);
 }
 
 @mixin alpha {
@@ -46,24 +46,24 @@
 
   &:hover {
     cursor: pointer;
-    opacity: $ALPHA;
+    opacity: $opacity-for-alpha;
   }
 }
 
-@mixin alphaInDark {
+@mixin alpha-in-dark {
   transition: all 0.3s ease;
 
   &:hover {
     cursor: pointer;
-    opacity: $ALPHA_IN_DARK;
+    opacity: $opacity-for-alpha-in-dark;
   }
 }
 
-@mixin fixUglyFontSizeOnAndroidChrome {
+@mixin fix-ugly-font-size-on-android-chrome {
   max-height: 999999px;
 }
 
-@mixin anchorLikeText($color: #000) {
+@mixin anchor-like-text($color: #000) {
   a {
     color: $color;
     text-decoration: none;
@@ -75,27 +75,27 @@
   }
 }
 
-@mixin fontSansSerif() {
+@mixin font-sans-serif() {
   font-family:
     Helvetica, "Yu Gothic Medium", "游ゴシック Medium", YuGothic,
     "游ゴシック体", "ヒラギノ角ゴ Pro W3", "ヒラギノ角ゴ W3",
     "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, sans-serif;
 }
 
-@mixin fontSerif() {
+@mixin font-serif() {
   font-family:
     "Times New Roman", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3",
     "Hiragino Mincho ProN", "メイリオ", Meiryo, serif;
 }
 
-@mixin mqpc() {
-  @media screen and (min-width: $BREAK_WIDTH_PC) {
+@mixin mq-pc() {
+  @media screen and (min-width: $break-width-pc) {
     @content;
   }
 }
 
-// @mixin mqsp() {
-//   @media screen and (max-width: $BREAK_WIDTH_PC - 1px) {
+// @mixin mq-sp() {
+//   @media screen and (max-width: $break-width-pc - 1px) {
 //     @content;
 //   }
 // }

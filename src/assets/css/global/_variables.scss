@@ -1,15 +1,15 @@
-$ALPHA: 0.6;
-$ALPHA_IN_DARK: 0.9;
+$opacity-for-alpha: 0.6;
+$opacity-for-alpha-in-dark: 0.9;
 
-$BREAK_WIDTH_PC: 768px;
+$break-width-pc: 768px;
 
-$WIDTH_SP: 375px;
+$width-sp: 375px;
 //vw算出用
-$PX_TO_VW_SP: calc(100vw / $WIDTH_SP);
+$px-to-vw-sp: calc(100vw / $width-sp);
 
-$WIDTH_PC: 1200px;
+$width-pc: 1200px;
 //vw算出用
-$PX_TO_VW_PC: calc(100vw / $WIDTH_PC);
+$px-to-vw-pc: calc(100vw / $width-pc);
 
 // letter-spacing計算用
-$AV_TO_EM: calc(1em / 1000);
+$av-to-em: calc(1em / 1000);

@@ -1,26 +1,26 @@
 @use "../../../global" as *;
 
 .p-dummy-images {
-  @include mqpc() {
+  @include mq-pc() {
     display: flex;
   }
   &__image {
     display: block;
-    width: 192px * $PX_TO_VW_SP;
+    width: 192px * $px-to-vw-sp;
     height: auto;
-    @include mqpc() {
+    @include mq-pc() {
       width: 192px;
     }
     &--image01 {
-      @include mqpc() {
+      @include mq-pc() {
       }
     }
     &--image02 {
-      @include mqpc() {
+      @include mq-pc() {
       }
     }
     &--image03 {
-      @include mqpc() {
+      @include mq-pc() {
       }
     }
   }
