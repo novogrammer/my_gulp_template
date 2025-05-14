@@ -1,6 +1,6 @@
-@use "../global" as *;
+@use "../global" as global;
 
 .l-main {
-  @include mqpc() {
+  @include global.mq-pc() {
   }
 }

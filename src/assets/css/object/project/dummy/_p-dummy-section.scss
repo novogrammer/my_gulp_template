@@ -1,24 +1,24 @@
-@use "../../../global" as *;
+@use "../../../global" as global;
 
 //BEMの場合はこんな感じ
 .p-dummy-section {
   background: #faa;
-  @include mqpc() {
+  @include global.mq-pc() {
     background: #afa;
   }
 
   &__title {
     //vwベースでレイアウトする場合、PSD上のpxから計算する。
-    font-size: 40px * $PX_TO_VW_SP;
+    font-size: 40px * global.$px-to-vw-sp;
     line-height: 200%;
-    @include mqpc() {
+    @include global.mq-pc() {
       font-size: 40px;
     }
   }
   &__text {
-    font-size: 20px * $PX_TO_VW_SP;
+    font-size: 20px * global.$px-to-vw-sp;
     line-height: 200%;
-    @include mqpc() {
+    @include global.mq-pc() {
       font-size: 20px;
     }
   }

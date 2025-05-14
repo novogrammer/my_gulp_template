@@ -1,8 +1,8 @@
-@use "../global" as *;
+@use "../global" as global;
 
 @use "./ress";
 
 body {
   text-size-adjust: 100%;
-  @include fontSansSerif();
+  @include global.font-sans-serif();
 }

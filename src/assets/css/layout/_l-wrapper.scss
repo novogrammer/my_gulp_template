@@ -1,6 +1,6 @@
-@use "../global" as *;
+@use "../global" as global;
 
 .l-wrapper {
-  @include mqpc() {
+  @include global.mq-pc() {
   }
 }
