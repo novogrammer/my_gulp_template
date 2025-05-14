@@ -13,5 +13,6 @@ module.exports = {
     "@stylistic/value-list-comma-newline-after": null,
     "@stylistic/number-leading-zero": null,
     "@stylistic/value-list-comma-space-after": null,
+    "length-zero-no-unit": null,
   },
 };
