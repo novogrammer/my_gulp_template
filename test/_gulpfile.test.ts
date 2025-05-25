@@ -6,7 +6,7 @@ import fs from "fs/promises";
 import { existsSync } from "fs";
 import {
   runAsync,
-  describeIf,
+  describeIfTemplate,
   ROOT,
   SRC,
   DIST,

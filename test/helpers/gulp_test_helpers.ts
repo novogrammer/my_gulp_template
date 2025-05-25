@@ -23,10 +23,10 @@ export function runAsync(cmd: string, opts: { cwd: string }) {
 }
 
 /**
- * Conditional describe function that only runs tests if the package name matches
+ * Conditional describe function that only runs tests if this is the template project
  */
 export const isTemplate = process.env.npm_package_name === 'my_gulp_template';
-export const describeIf = isTemplate ? describe : describe.skip;
+export const describeIfTemplate = isTemplate ? describe : describe.skip;
 
 /**
  * Check if a file exists
