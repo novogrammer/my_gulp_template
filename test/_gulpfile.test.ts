@@ -11,11 +11,11 @@ import {
   SRC,
   DIST,
   expectFileExists,
-  expectFileSizeEqual,
-  expectIsWebPFormat,
-  expectIsJavaScript,
-  expectIsHTML,
-  expectIsCSS
+  expectFileSizeEqualAsync,
+  expectIsWebPFormatAsync,
+  expectIsJavaScriptAsync,
+  expectIsHTMLAsync,
+  expectIsCSSAsync
 } from './helpers/gulp_test_helpers';
 
 describeIf('gulp clean', () => {
@@ -50,7 +50,7 @@ describeIf('gulp build', () => {
 
       expectFileExists(srcFile);
       expectFileExists(destFile);
-      await expectFileSizeEqual(srcFile, destFile);
+      await expectFileSizeEqualAsync(srcFile, destFile);
     }
   });
   test("pngのwebp変換を確認する", async () => {
@@ -65,7 +65,7 @@ describeIf('gulp build', () => {
 
       expectFileExists(srcFile);
       expectFileExists(destFile);
-      await expectIsWebPFormat(destFile);
+      await expectIsWebPFormatAsync(destFile);
     }
   });
   test("jpgのwebp変換を確認する", async () => {
@@ -80,7 +80,7 @@ describeIf('gulp build', () => {
 
       expectFileExists(srcFile);
       expectFileExists(destFile);
-      await expectIsWebPFormat(destFile);
+      await expectIsWebPFormatAsync(destFile);
     }
   });
   test("jsが出力されることを確認する", async () => {
@@ -95,7 +95,7 @@ describeIf('gulp build', () => {
 
       expectFileExists(srcFile);
       expectFileExists(destFile);
-      await expectIsJavaScript(destFile);
+      await expectIsJavaScriptAsync(destFile);
     }
   });
   test("htmlが出力されることを確認する", async () => {
@@ -108,7 +108,7 @@ describeIf('gulp build', () => {
 
       expectFileExists(srcFile);
       expectFileExists(destFile);
-      await expectIsHTML(destFile);
+      await expectIsHTMLAsync(destFile);
     }
   });
   test("cssが出力されることを確認する", async () => {
@@ -121,7 +121,7 @@ describeIf('gulp build', () => {
 
       expectFileExists(srcFile);
       expectFileExists(destFile);
-      await expectIsCSS(destFile);
+      await expectIsCSSAsync(destFile);
     }
   });
   describe("html-validate", () => {

@@ -38,7 +38,7 @@ export function expectFileExists(filePath: string) {
 /**
  * Compare file sizes between two files
  */
-export async function expectFileSizeEqual(srcPath: string, destPath: string) {
+export async function expectFileSizeEqualAsync(srcPath: string, destPath: string) {
   const srcStat = await fs.stat(srcPath);
   const destStat = await fs.stat(destPath);
   expect(destStat.size).toBe(srcStat.size);
@@ -47,7 +47,7 @@ export async function expectFileSizeEqual(srcPath: string, destPath: string) {
 /**
  * Check if a file is in WebP format
  */
-export async function expectIsWebPFormat(filePath: string) {
+export async function expectIsWebPFormatAsync(filePath: string) {
   const buffer = await fs.readFile(filePath);
   // 「RIFF」(0–3) と「WEBP」(8–11) のみ検証
   expect(buffer.slice(0, 4).toString('ascii')).toBe('RIFF');
@@ -57,7 +57,7 @@ export async function expectIsWebPFormat(filePath: string) {
 /**
  * Check if a file is JavaScript
  */
-export async function expectIsJavaScript(filePath: string) {
+export async function expectIsJavaScriptAsync(filePath: string) {
   const js = await fs.readFile(filePath, 'utf8');
   expect(js).toMatch(/'use strict';/);
 }
@@ -65,7 +65,7 @@ export async function expectIsJavaScript(filePath: string) {
 /**
  * Check if a file is HTML
  */
-export async function expectIsHTML(filePath: string) {
+export async function expectIsHTMLAsync(filePath: string) {
   const html = await fs.readFile(filePath, 'utf8');
   expect(html).toMatch(/<!DOCTYPE html>/);
 }
@@ -73,7 +73,7 @@ export async function expectIsHTML(filePath: string) {
 /**
  * Check if a file is CSS
  */
-export async function expectIsCSS(filePath: string) {
+export async function expectIsCSSAsync(filePath: string) {
   const css = await fs.readFile(filePath, 'utf8');
   expect(css).toMatch(/@charset "UTF-8";/);
 }
