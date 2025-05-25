@@ -147,7 +147,7 @@ describeIfTemplate('gulp scss', () => {
   });
 
   test("_から始まるscssファイルが処理されないことを確認する", async () => {
-    const testFile = "assets/css/_test.scss";
+    const testFile = "assets/css/global/_variables.scss";
     const srcFile = path.join(SRC, testFile);
     const destFile = path.join(DIST, testFile).replace(/\.scss$/, ".css");
 
@@ -180,7 +180,7 @@ describeIfTemplate('gulp pug', () => {
   });
 
   test("_から始まるpugファイルが処理されないことを確認する", async () => {
-    const testFile = "_test.pug";
+    const testFile = "_base.pug";
     const srcFile = path.join(SRC, testFile);
     const destFile = path.join(DIST, testFile).replace(/\.pug$/, ".html");
 
@@ -215,7 +215,7 @@ describeIfTemplate('gulp rollup', () => {
   });
 
   test("_から始まるjsファイルが処理されないことを確認する", async () => {
-    const testFile = "assets/js/_test.js";
+    const testFile = "assets/js/_constants.js";
     const srcFile = path.join(SRC, testFile);
     const destFile = path.join(DIST, testFile);
 
