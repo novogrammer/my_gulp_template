@@ -18,7 +18,7 @@ import {
   expectIsCSSAsync
 } from './helpers/gulp_test_helpers';
 
-describeIfTemplate('gulp clean_task', () => {
+describeIfTemplate('npx gulp clean', () => {
   test("ファイルが消えることの確認", async () => {
     await fs.mkdir(DIST, { recursive: true });
     await fs.writeFile(path.join(DIST, 'dummy.txt'), 'dummy');
@@ -27,7 +27,7 @@ describeIfTemplate('gulp clean_task', () => {
   });
 });
 
-describeIfTemplate('gulp copy_image_task', () => {
+describeIfTemplate('npx gulp copy_image', () => {
   beforeAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
     await runAsync('npx gulp copy_image', { cwd: ROOT });
@@ -56,7 +56,7 @@ describeIfTemplate('gulp copy_image_task', () => {
   });
 });
 
-describeIfTemplate('gulp imagemin_webp', () => {
+describeIfTemplate('npx gulp imagemin_webp', () => {
   beforeAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
     await runAsync('npx gulp imagemin_webp', { cwd: ROOT });
@@ -98,7 +98,7 @@ describeIfTemplate('gulp imagemin_webp', () => {
   });
 });
 
-describeIfTemplate('gulp copy_lib_task', () => {
+describeIfTemplate('npx gulp copy_lib', () => {
   beforeAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
     await runAsync('npx gulp copy_lib', { cwd: ROOT });
@@ -122,7 +122,7 @@ describeIfTemplate('gulp copy_lib_task', () => {
   });
 });
 
-describeIfTemplate('gulp scss', () => {
+describeIfTemplate('npx gulp scss', () => {
   beforeAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
     await runAsync('npx gulp copy_image', { cwd: ROOT });
@@ -156,7 +156,7 @@ describeIfTemplate('gulp scss', () => {
   });
 });
 
-describeIfTemplate('gulp pug', () => {
+describeIfTemplate('npx gulp pug', () => {
   beforeAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
     await runAsync('npx gulp pug', { cwd: ROOT });
@@ -189,7 +189,7 @@ describeIfTemplate('gulp pug', () => {
   });
 });
 
-describeIfTemplate('gulp rollup', () => {
+describeIfTemplate('npx gulp rollup', () => {
   beforeAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
     await runAsync('npx gulp rollup', { cwd: ROOT });
@@ -224,7 +224,7 @@ describeIfTemplate('gulp rollup', () => {
   });
 });
 
-describeIfTemplate('gulp build', () => {
+describeIfTemplate('npx gulp build', () => {
   beforeAll(async () => {
     await runAsync('npx gulp build', { cwd: ROOT });
   }, 20 * 1000);
