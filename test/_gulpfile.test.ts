@@ -2,27 +2,21 @@
 /* eslint-disable no-restricted-syntax */
 
 import path from "path";
-import fs from "fs/promises"
+import fs from "fs/promises";
 import { existsSync } from "fs";
-import { exec } from 'child_process';
-
-const ROOT = path.resolve(__dirname, '..');
-const SRC = path.join(ROOT, "src");
-const DIST = path.join(ROOT, "dist");
-
-function runAsync(cmd: string, opts: { cwd: string }) {
-  return new Promise((resolve, reject) => {
-    exec(cmd, opts, (err, stdout, stderr) => {
-      if (err) reject(err);
-      else resolve({ stdout, stderr });
-    });
-  });
-}
-
-const isTemplate = process.env.npm_package_name === 'my_gulp_template';
-
-// describe を置き換え、package名がmy_gulp_templateの時だけ実行する
-const describeIf = isTemplate ? describe : describe.skip;
+import {
+  runAsync,
+  describeIf,
+  ROOT,
+  SRC,
+  DIST,
+  expectFileExists,
+  expectFileSizeEqual,
+  expectIsWebPFormat,
+  expectIsJavaScript,
+  expectIsHTML,
+  expectIsCSS
+} from './helpers/gulp_test_helpers';
 
 describeIf('gulp clean', () => {
   test("ファイルが消えることの確認", async () => {
@@ -54,12 +48,9 @@ describeIf('gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file);
 
-      expect(existsSync(srcFile)).toBe(true);
-      expect(existsSync(destFile)).toBe(true);
-
-      const srcStat = await fs.stat(srcFile);
-      const destStat = await fs.stat(destFile);
-      expect(destStat.size).toBe(srcStat.size);
+      expectFileExists(srcFile);
+      expectFileExists(destFile);
+      await expectFileSizeEqual(srcFile, destFile);
     }
   });
   test("pngのwebp変換を確認する", async () => {
@@ -72,15 +63,9 @@ describeIf('gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.png$/, ".webp");
 
-      expect(existsSync(srcFile)).toBe(true);
-      expect(existsSync(destFile)).toBe(true);
-
-      // ヘッダ読み込み（先頭12バイトを確認）
-      const buffer = await fs.readFile(destFile);
-      // 「RIFF」(0–3) と「WEBP」(8–11) のみ検証
-      expect(buffer.slice(0, 4).toString('ascii')).toBe('RIFF');
-      expect(buffer.slice(8, 12).toString('ascii')).toBe('WEBP');
-
+      expectFileExists(srcFile);
+      expectFileExists(destFile);
+      await expectIsWebPFormat(destFile);
     }
   });
   test("jpgのwebp変換を確認する", async () => {
@@ -93,15 +78,9 @@ describeIf('gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.jpg$/, ".webp");
 
-      expect(existsSync(srcFile)).toBe(true);
-      expect(existsSync(destFile)).toBe(true);
-
-      // ヘッダ読み込み（先頭12バイトを確認）
-      const buffer = await fs.readFile(destFile);
-      // 「RIFF」(0–3) と「WEBP」(8–11) のみ検証
-      expect(buffer.slice(0, 4).toString('ascii')).toBe('RIFF');
-      expect(buffer.slice(8, 12).toString('ascii')).toBe('WEBP');
-
+      expectFileExists(srcFile);
+      expectFileExists(destFile);
+      await expectIsWebPFormat(destFile);
     }
   });
   test("jsが出力されることを確認する", async () => {
@@ -114,10 +93,9 @@ describeIf('gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.ts$/, ".js");
 
-      expect(existsSync(srcFile)).toBe(true);
-      expect(existsSync(destFile)).toBe(true);
-      const js = await fs.readFile(destFile, 'utf8');
-      expect(js).toMatch(/'use strict';/);
+      expectFileExists(srcFile);
+      expectFileExists(destFile);
+      await expectIsJavaScript(destFile);
     }
   });
   test("htmlが出力されることを確認する", async () => {
@@ -128,10 +106,9 @@ describeIf('gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.pug$/, ".html");
 
-      expect(existsSync(srcFile)).toBe(true);
-      expect(existsSync(destFile)).toBe(true);
-      const html = await fs.readFile(destFile, 'utf8');
-      expect(html).toMatch(/<!DOCTYPE html>/);
+      expectFileExists(srcFile);
+      expectFileExists(destFile);
+      await expectIsHTML(destFile);
     }
   });
   test("cssが出力されることを確認する", async () => {
@@ -142,10 +119,9 @@ describeIf('gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.scss$/, ".css");
 
-      expect(existsSync(srcFile)).toBe(true);
-      expect(existsSync(destFile)).toBe(true);
-      const css = await fs.readFile(destFile, 'utf8');
-      expect(css).toMatch(/@charset "UTF-8";/);
+      expectFileExists(srcFile);
+      expectFileExists(destFile);
+      await expectIsCSS(destFile);
     }
   });
   describe("html-validate", () => {
