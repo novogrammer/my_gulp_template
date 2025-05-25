@@ -124,6 +124,20 @@ describeIfTemplate('gulp build', () => {
       await expectIsCSSAsync(destFile);
     }
   });
+  test("libファイルのコピーを確認する", async () => {
+    const files = [
+      "dummy/dummy.js",
+    ].map((f) => `assets/lib/${f}`);
+    for (const file of files) {
+      const srcFile = path.join(SRC, file);
+      const destFile = path.join(DIST, file);
+
+      expectFileExists(srcFile);
+      expectFileExists(destFile);
+      await expectFileSizeEqualAsync(srcFile, destFile);
+    }
+  });
+
   describe("html-validate", () => {
     test("html-validateが実行できることの確認", async () => {
       await runAsync('npm run html-validate', { cwd: ROOT });
