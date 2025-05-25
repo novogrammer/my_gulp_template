@@ -18,7 +18,7 @@ import {
   expectIsCSSAsync
 } from './helpers/gulp_test_helpers';
 
-describeIf('gulp clean', () => {
+describeIfTemplate('gulp clean', () => {
   test("ファイルが消えることの確認", async () => {
     await fs.mkdir(DIST, { recursive: true });
     await fs.writeFile(path.join(DIST, 'dummy.txt'), 'dummy');
@@ -27,7 +27,7 @@ describeIf('gulp clean', () => {
   });
 });
 
-describeIf('gulp build', () => {
+describeIfTemplate('gulp build', () => {
   beforeAll(async () => {
     await runAsync('npx gulp build', { cwd: ROOT });
   }, 20 * 1000);
