@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import { existsSync } from "fs";
 import { exec } from 'child_process';
 
-export {};
+export { };
 
 // Common paths
 export const ROOT = path.resolve(__dirname, '../..');
@@ -27,13 +27,6 @@ export function runAsync(cmd: string, opts: { cwd: string }) {
  */
 export const isTemplate = process.env.npm_package_name === 'my_gulp_template';
 export const describeIfTemplate = isTemplate ? describe : describe.skip;
-
-/**
- * Check if a file exists
- */
-export function expectFileExists(filePath: string) {
-  expect(existsSync(filePath)).toBe(true);
-}
 
 /**
  * Compare file sizes between two files

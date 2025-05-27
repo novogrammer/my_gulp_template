@@ -10,7 +10,6 @@ import {
   ROOT,
   SRC,
   DIST,
-  expectFileExists,
   expectFileSizeEqualAsync,
   expectIsWebPFormatAsync,
   expectIsJavaScriptAsync,
@@ -49,8 +48,8 @@ describeIfTemplate('npx gulp copy_image', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file);
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectFileSizeEqualAsync(srcFile, destFile);
     }
   });
@@ -75,8 +74,8 @@ describeIfTemplate('npx gulp imagemin_webp', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.png$/, ".webp");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsWebPFormatAsync(destFile);
     }
   });
@@ -91,8 +90,8 @@ describeIfTemplate('npx gulp imagemin_webp', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.jpg$/, ".webp");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsWebPFormatAsync(destFile);
     }
   });
@@ -115,8 +114,8 @@ describeIfTemplate('npx gulp copy_lib', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file);
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectFileSizeEqualAsync(srcFile, destFile);
     }
   });
@@ -140,8 +139,8 @@ describeIfTemplate('npx gulp scss', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.scss$/, ".css");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsCSSAsync(destFile);
     }
   });
@@ -151,7 +150,7 @@ describeIfTemplate('npx gulp scss', () => {
     const srcFile = path.join(SRC, testFile);
     const destFile = path.join(DIST, testFile).replace(/\.scss$/, ".css");
 
-    expectFileExists(srcFile);
+    expect(existsSync(srcFile)).toBe(true);
     expect(existsSync(destFile)).toBe(false);
   });
 });
@@ -173,8 +172,8 @@ describeIfTemplate('npx gulp pug', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.pug$/, ".html");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsHTMLAsync(destFile);
     }
   });
@@ -184,7 +183,7 @@ describeIfTemplate('npx gulp pug', () => {
     const srcFile = path.join(SRC, testFile);
     const destFile = path.join(DIST, testFile).replace(/\.pug$/, ".html");
 
-    expectFileExists(srcFile);
+    expect(existsSync(srcFile)).toBe(true);
     expect(existsSync(destFile)).toBe(false);
   });
 });
@@ -208,8 +207,8 @@ describeIfTemplate('npx gulp rollup', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.ts$/, ".js");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsJavaScriptAsync(destFile);
     }
   });
@@ -219,7 +218,7 @@ describeIfTemplate('npx gulp rollup', () => {
     const srcFile = path.join(SRC, testFile);
     const destFile = path.join(DIST, testFile);
 
-    expectFileExists(srcFile);
+    expect(existsSync(srcFile)).toBe(true);
     expect(existsSync(destFile)).toBe(false);
   });
 });
@@ -245,8 +244,8 @@ describeIfTemplate('npx gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file);
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectFileSizeEqualAsync(srcFile, destFile);
     }
   });
@@ -260,8 +259,8 @@ describeIfTemplate('npx gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.png$/, ".webp");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsWebPFormatAsync(destFile);
     }
   });
@@ -275,8 +274,8 @@ describeIfTemplate('npx gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.jpg$/, ".webp");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsWebPFormatAsync(destFile);
     }
   });
@@ -290,8 +289,8 @@ describeIfTemplate('npx gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.ts$/, ".js");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsJavaScriptAsync(destFile);
     }
   });
@@ -303,8 +302,8 @@ describeIfTemplate('npx gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.pug$/, ".html");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsHTMLAsync(destFile);
     }
   });
@@ -316,8 +315,8 @@ describeIfTemplate('npx gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file).replace(/\.scss$/, ".css");
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectIsCSSAsync(destFile);
     }
   });
@@ -329,8 +328,8 @@ describeIfTemplate('npx gulp build', () => {
       const srcFile = path.join(SRC, file);
       const destFile = path.join(DIST, file);
 
-      expectFileExists(srcFile);
-      expectFileExists(destFile);
+      expect(existsSync(srcFile)).toBe(true);
+      expect(existsSync(destFile)).toBe(true);
       await expectFileSizeEqualAsync(srcFile, destFile);
     }
   });
