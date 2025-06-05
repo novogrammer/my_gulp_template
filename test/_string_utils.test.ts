@@ -23,4 +23,10 @@ describe('zeroPadding', () => {
     expect(zeroPadding(123, 2)).toBe("123");
     expect(console.warn).toHaveBeenCalledTimes(1);
   });
+  test('zeroPadding(-1,2) throws', () => {
+    expect(() => zeroPadding(-1, 2)).toThrow();
+  });
+  test('zeroPadding(1.5,2) throws', () => {
+    expect(() => zeroPadding(1.5, 2)).toThrow();
+  });
 });
