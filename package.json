@@ -6,7 +6,7 @@
   "scripts": {
     "fix:esformat": "prettier --write 'src/**/*.js' 'src/**/*.ts'",
     "fix:eslint": "eslint --fix 'src/**/*.js' 'src/**/*.ts'",
-    "fix:stylelint": "stylelint stylelint --formatter verbose --fix 'src/**/*.scss'",
+    "fix:stylelint": "stylelint --formatter verbose --fix 'src/**/*.scss'",
     "fix": "npm-run-all --sequential fix:*",
     "start": "gulp",
     "browserslist-update-db": "npx browserslist@latest --update-db",
