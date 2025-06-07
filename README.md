@@ -8,7 +8,7 @@ my_gulp_template
 ご自由にどうぞ。
 
 ## 前提
-* Node.js 20.x
+* Node.js 22.x
     * `.node-version`が使えるnodenvなどを推奨
 
 
