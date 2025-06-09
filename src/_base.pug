@@ -9,6 +9,8 @@ html(lang="ja")
     - var ogpUrl=""
     - var siteName=""
     - var mediaQueryPc="(min-width:768px)"
+    - var versionForCache=""
+    - var cacheQuery = versionForCache ? `?ver=${versionForCache}` : ""
   block functions
     -
       function zeroPadding(num, qty) {
@@ -72,10 +74,10 @@ html(lang="ja")
       link(rel="shortcut icon" href=faviconUrl)
 
     block styles
-      link(rel="stylesheet" href=relRoot+"assets/css/style.css")
+      link(rel="stylesheet" href=relRoot+"assets/css/style.css"+cacheQuery)
     block scripts
-      script(src=relRoot+"assets/js/bundle.js")
-      script(src=relRoot+"assets/js/common.js")
+      script(src=relRoot+"assets/js/bundle.js"+cacheQuery)
+      script(src=relRoot+"assets/js/common.js"+cacheQuery)
   body
     .l-wrapper
       .l-header
