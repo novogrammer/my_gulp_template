@@ -39,14 +39,14 @@ html(lang="ja")
       picture
         if media
           if webp
-            source(type="image/webp" media=mediaQueryPc srcset=baseName+"--pc.webp")
-            source(type="image/webp" srcset=baseName+"--sp.webp")
-          source(media=mediaQueryPc srcset=baseName+"--pc."+ext)
-          img(src=baseName+"--sp."+ext alt=alt class=className loading=loading)
+            source(type="image/webp" media=mediaQueryPc srcset=baseName+"--pc.webp"+cacheQuery)
+            source(type="image/webp" srcset=baseName+"--sp.webp"+cacheQuery)
+          source(media=mediaQueryPc srcset=baseName+"--pc."+ext+cacheQuery)
+          img(src=baseName+"--sp."+ext+cacheQuery alt=alt class=className loading=loading)
         else
           if webp
-            source(type="image/webp" srcset=baseName+".webp")
-          img(src=baseName+"."+ext alt=alt class=className loading=loading)
+            source(type="image/webp" srcset=baseName+".webp"+cacheQuery)
+          img(src=baseName+"."+ext+cacheQuery alt=alt class=className loading=loading)
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE-edge")
