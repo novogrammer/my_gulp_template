@@ -6,3 +6,8 @@ body {
   text-size-adjust: 100%;
   @include global.font-sans-serif();
 }
+
+// OSの設定でフォントサイズを変えているとフォントサイズが変わってしまうので対策を入れる。
+* {
+  @include global.fix-ugly-font-size-on-android-chrome();
+}
