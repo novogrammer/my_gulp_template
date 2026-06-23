@@ -30,7 +30,7 @@ html(lang="ja")
         };
       }
   block mixins
-    mixin picture({src,alt="",className="",media=false,loading="eager",webp=false})
+    mixin picture({src,alt="",className="",media=false,loading="eager",webp=false,width=null,height=null})
       -
         const {baseName,ext}=separateSrc(src);
         if(webp && ext!="jpg" && ext!="png"){
@@ -42,11 +42,11 @@ html(lang="ja")
             source(type="image/webp" media=mediaQueryPc srcset=baseName+"--pc.webp"+cacheQuery)
             source(type="image/webp" srcset=baseName+"--sp.webp"+cacheQuery)
           source(media=mediaQueryPc srcset=baseName+"--pc."+ext+cacheQuery)
-          img(src=baseName+"--sp."+ext+cacheQuery alt=alt class=className loading=loading)
+          img(src=baseName+"--sp."+ext+cacheQuery alt=alt class=className loading=loading width=width height=height)
         else
           if webp
             source(type="image/webp" srcset=baseName+".webp"+cacheQuery)
-          img(src=baseName+"."+ext+cacheQuery alt=alt class=className loading=loading)
+          img(src=baseName+"."+ext+cacheQuery alt=alt class=className loading=loading width=width height=height)
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE-edge")
