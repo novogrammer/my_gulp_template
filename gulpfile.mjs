@@ -90,7 +90,7 @@ const imagemin_webp_jpg_task = () =>
       base: paths.src_webp,
       encoding: false,
     })
-    .pipe(sharp_webp({ quality: 75 }))
+    .pipe(sharp_webp({ quality: 85, smartSubsample: true }))
     .pipe(gulp.dest(paths.dist_webp));
 export { imagemin_webp_jpg_task as imagemin_jpg_webp };
 
