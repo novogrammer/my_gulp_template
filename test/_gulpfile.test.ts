@@ -55,10 +55,10 @@ describeIfTemplate('npx gulp copy_image', () => {
   });
 });
 
-describeIfTemplate('npx gulp imagemin_webp', () => {
+describeIfTemplate('npx gulp webp', () => {
   beforeAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
-    await runAsync('npx gulp imagemin_webp', { cwd: ROOT });
+    await runAsync('npx gulp webp', { cwd: ROOT });
   }, 10 * 1000);
   afterAll(async () => {
     await runAsync('npx gulp clean', { cwd: ROOT });
