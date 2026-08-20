@@ -14,12 +14,8 @@ import plumber from "gulp-plumber";
 import notify from "gulp-notify";
 import beautify from "gulp-jsbeautifier";
 
-import gulpImagemin from "gulp-imagemin";
-import imageminWebp from "imagemin-webp";
-
 import through2 from "through2";
-
-import gulpRename from "gulp-rename";
+import sharp from "sharp";
 
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
@@ -65,54 +61,52 @@ const copy_image_task = () =>
     .pipe(gulp.dest(paths.dist_image));
 export { copy_image_task as copy_image };
 
-const imagemin_webp_jpg_task = () =>
+const create_sharp_webp_transform = (options) =>
+  through2.obj((file, encoding, callback) => {
+    if (file.isNull()) {
+      callback(null, file);
+      return;
+    }
+
+    if (file.isStream()) {
+      callback(new Error("Streaming input is not supported for WebP conversion"));
+      return;
+    }
+
+    sharp(file.contents)
+      .webp(options)
+      .toBuffer()
+      .then((contents) => {
+        file.contents = contents;
+        file.extname = ".webp";
+        callback(null, file);
+      })
+      .catch(callback);
+  });
+
+const webp_jpg_task = () =>
   gulp
     .src([`${paths.src_webp}**/*.jpg`], {
       base: paths.src_webp,
       encoding: false,
     })
-    .pipe(
-      gulpImagemin([
-        imageminWebp({
-          lossless: false,
-        }),
-      ]),
-    )
-    .pipe(
-      gulpRename((parsedPath) => {
-        parsedPath.extname = ".webp";
-      }),
-    )
+    .pipe(create_sharp_webp_transform({ quality: 85, smartSubsample: true }))
     .pipe(gulp.dest(paths.dist_webp));
-export { imagemin_webp_jpg_task as imagemin_jpg_webp };
+export { webp_jpg_task as webp_jpg };
 
-const imagemin_webp_png_task = () =>
+const webp_png_task = () =>
   gulp
     .src([`${paths.src_webp}**/*.png`], {
       base: paths.src_webp,
       encoding: false,
     })
-    .pipe(
-      gulpImagemin([
-        imageminWebp({
-          lossless: true,
-        }),
-      ]),
-    )
-    .pipe(
-      gulpRename((parsedPath) => {
-        parsedPath.extname = ".webp";
-      }),
-    )
+    .pipe(create_sharp_webp_transform({ lossless: true }))
     .pipe(gulp.dest(paths.dist_webp));
-export { imagemin_webp_png_task as imagemin_webp_png };
+export { webp_png_task as webp_png };
 
-const imagemin_webp_task = gulp.series(
-  imagemin_webp_jpg_task,
-  imagemin_webp_png_task,
-);
+const webp_task = gulp.series(webp_jpg_task, webp_png_task);
 
-export { imagemin_webp_task as imagemin_webp };
+export { webp_task as webp };
 const copy_lib_task = () =>
   gulp
     .src([`${paths.src_lib}**`], { base: paths.src_lib, encoding: false })
@@ -249,7 +243,7 @@ export { rollup_task as rollup };
 
 const build_task = gulp.series(
   clean_task,
-  gulp.parallel(copy_image_task, imagemin_webp_task, copy_lib_task),
+  gulp.parallel(copy_image_task, webp_task, copy_lib_task),
   gulp.parallel(scss_task, pug_task, rollup_task),
 );
 export { build_task as build };
@@ -259,7 +253,7 @@ const watch_task = () => {
     useFsEvents: false,
   };
   gulp.watch([`${paths.src_image}**/*`], watchOptions, copy_image_task);
-  gulp.watch([`${paths.src_webp}**/*`], watchOptions, imagemin_webp_task);
+  gulp.watch([`${paths.src_webp}**/*`], watchOptions, webp_task);
   gulp.watch([`${paths.scss}**/*.scss`], watchOptions, scss_task);
   gulp.watch([`${paths.pug}**/*.pug`], watchOptions, pug_task);
   gulp.watch(
