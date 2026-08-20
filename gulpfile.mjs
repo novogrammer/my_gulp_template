@@ -14,12 +14,8 @@ import plumber from "gulp-plumber";
 import notify from "gulp-notify";
 import beautify from "gulp-jsbeautifier";
 
-import gulpImagemin from "gulp-imagemin";
-import imageminWebp from "imagemin-webp";
-
 import through2 from "through2";
-
-import gulpRename from "gulp-rename";
+import sharp from "sharp";
 
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
@@ -65,24 +61,36 @@ const copy_image_task = () =>
     .pipe(gulp.dest(paths.dist_image));
 export { copy_image_task as copy_image };
 
+const sharp_webp = (options) =>
+  through2.obj((file, encoding, callback) => {
+    if (file.isNull()) {
+      callback(null, file);
+      return;
+    }
+
+    if (file.isStream()) {
+      callback(new Error("Streaming input is not supported for WebP conversion"));
+      return;
+    }
+
+    sharp(file.contents)
+      .webp(options)
+      .toBuffer()
+      .then((contents) => {
+        file.contents = contents;
+        file.extname = ".webp";
+        callback(null, file);
+      })
+      .catch(callback);
+  });
+
 const imagemin_webp_jpg_task = () =>
   gulp
     .src([`${paths.src_webp}**/*.jpg`], {
       base: paths.src_webp,
       encoding: false,
     })
-    .pipe(
-      gulpImagemin([
-        imageminWebp({
-          lossless: false,
-        }),
-      ]),
-    )
-    .pipe(
-      gulpRename((parsedPath) => {
-        parsedPath.extname = ".webp";
-      }),
-    )
+    .pipe(sharp_webp({ quality: 75 }))
     .pipe(gulp.dest(paths.dist_webp));
 export { imagemin_webp_jpg_task as imagemin_jpg_webp };
 
@@ -92,18 +100,7 @@ const imagemin_webp_png_task = () =>
       base: paths.src_webp,
       encoding: false,
     })
-    .pipe(
-      gulpImagemin([
-        imageminWebp({
-          lossless: true,
-        }),
-      ]),
-    )
-    .pipe(
-      gulpRename((parsedPath) => {
-        parsedPath.extname = ".webp";
-      }),
-    )
+    .pipe(sharp_webp({ lossless: true }))
     .pipe(gulp.dest(paths.dist_webp));
 export { imagemin_webp_png_task as imagemin_webp_png };
 
