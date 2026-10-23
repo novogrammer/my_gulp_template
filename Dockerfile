@@ -1,4 +1,4 @@
-FROM node:22.16.0-bookworm
+FROM node:26-trixie
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
