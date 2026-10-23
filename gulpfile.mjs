@@ -169,6 +169,11 @@ const pug_task = () =>
       gulpFlatmap((stream, file) =>
         stream
           .pipe(
+            plumber({
+              errorHandler: handleError,
+            }),
+          )
+          .pipe(
             pug({
               pretty: true,
               locals: {
