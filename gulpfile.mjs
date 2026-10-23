@@ -11,7 +11,6 @@ import autoprefixer from "gulp-autoprefixer";
 // see https://github.com/pugjs/pug
 import pug from "gulp-pug";
 import plumber from "gulp-plumber";
-import notify from "gulp-notify";
 import beautify from "gulp-jsbeautifier";
 
 import through2 from "through2";
@@ -30,6 +29,12 @@ import { deleteAsync } from "del";
 import path from "path";
 
 const sass = gulpSass(dartSass);
+
+function handleError(error) {
+  console.error(error);
+  process.stderr.write("\x07");
+  this.emit("end");
+}
 
 const IS_HTTPS = false;
 const IS_DEBUG = true;
@@ -120,7 +125,7 @@ const scss_task = () => {
     .src(`${paths.scss}**/*.scss`)
     .pipe(
       plumber({
-        errorHandler: notify.onError("Error: <%= error.message %>"),
+        errorHandler: handleError,
       }),
     )
     .pipe(
@@ -157,7 +162,7 @@ const pug_task = () =>
     .src([`${paths.pug}**/*.pug`, `!${paths.pug}**/_*.pug`])
     .pipe(
       plumber({
-        errorHandler: notify.onError("Error: <%= error.message %>"),
+        errorHandler: handleError,
       }),
     )
     .pipe(
@@ -200,7 +205,7 @@ const rollup_task = () => {
     .src(source)
     .pipe(
       plumber({
-        errorHandler: notify.onError("Error: <%= error.message %>"),
+        errorHandler: handleError,
       }),
     )
     .pipe(
